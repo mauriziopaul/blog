@@ -10,7 +10,7 @@ The post is being written in [markdown](https://gitbookio.gitbooks.io/markdown/c
 
 Code snippets are easy to implement:
 
-{% highlight R %}
+{% highlight R linenos %}
 
 hello <- function(name) {
     sprintf("Hello, %s!", name)
