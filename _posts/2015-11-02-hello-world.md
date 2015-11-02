@@ -12,12 +12,12 @@ Code snippets are easy to implement:
 
 {% highlight R linenos %}
 
-> hello <- function(name) {
-+     sprintf("Hello, %s!", name)
-+ }
+hello <- function(name) {
+  sprintf("Hello, %s!", name)
+}
 
-> hello("World")
-> # prints "Hello, World!" to console.
+hello("World")
+# prints "Hello, World!" to console.
 {% endhighlight %}
 
 Some resources for Jekyll: Try looking at the [Jekyll docs][jekyll-docs], take a look at bugs and feature requests at [Jekyll’s GitHub repo][jekyll-gh], and get answers to questions on [Jekyll Talk][jekyll-talk].
