@@ -1,36 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Simple Blog</title>
-    <description>This is the site for Paul Maurizio&#39;s GitHub pages blog, at the intersection of  infectious diseases, virology, vaccines, genetics, genomics, and statistical modeling.
+    <title>Simple Blog (mauriziopaul)</title>
+    <description>This is the site for Paul Maurizio&#39;s GitHub pages blog, discussing research at the intersection of  statistical genetics and host-pathogen interactions.
 </description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 02 Nov 2015 14:01:16 -0500</pubDate>
-    <lastBuildDate>Mon, 02 Nov 2015 14:01:16 -0500</lastBuildDate>
-    <generator>Jekyll v3.0.0</generator>
+    <pubDate>Wed, 04 Nov 2015 16:37:02 -0500</pubDate>
+    <lastBuildDate>Wed, 04 Nov 2015 16:37:02 -0500</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Getting Started With Allele-Specific RNA-Seq</title>
+        <description>&lt;p&gt;As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this &lt;a href=&quot;http://www.nature.com/ng/journal/v47/n4/full/ng.3222.html&quot;&gt;Nature Genetics&lt;/a&gt; article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/sra?term=SRP056236&quot;&gt;here&lt;/a&gt;. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).&lt;/p&gt;
+
+&lt;p&gt;Unlike the original study, we will attempt to analyze allelic imbalance in the absence of any inbred strains. We will also be interested in treatment effects, but will have to resort to other data sets to take a look at modeling those effects (i.e. gene induction).&lt;/p&gt;
+
+&lt;p&gt;To begin, in order to access the sra files easily, download the &lt;a href=&quot;https://github.com/ncbi/sra-tools&quot;&gt;NCBI SRA Toolkit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After installing (decompressing) the archive and adding the package’s */bin/ directory to the path, the sra files can be downloaded from the command line using:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;fastq-dump -X &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt; -Z SRX964397&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The files will be stored here (on a Mac OSX machine):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/Users/&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;username&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;/ncbi/public&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The raw data is hosted at this gene expression omnibus (GEO) &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44555&quot;&gt;site&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The model is given here:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(n;n\_i, \pi\_i, \phi)&lt;/script&gt;
+
+&lt;p&gt;Note on imprinted genes: Previous lists are available at &lt;a href=&quot;http://www.geneimprint.com/&quot;&gt;Gene Imprint&lt;/a&gt;, &lt;a href=&quot;http://igc.otago.ac.nz/&quot;&gt;U Otago&lt;/a&gt;, and &lt;a href=&quot;http://www.mousebook.org/catalog.php?catalog=imprinting&quot;&gt;Mousebook&lt;/a&gt;. A new list from the Nat Gen study is available at &lt;a href=&quot;http://www.nature.com/ng/journal/v47/n4/extref/ng.3222-S2.xlsx&quot;&gt;this site&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 04 Nov 2015 00:00:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/04/getting-started-allele-specific-rna-seq.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/04/getting-started-allele-specific-rna-seq.html</guid>
+        
+        
+        <category>rna-seq</category>
+        
+        <category>allelic-imbalance</category>
+        
+      </item>
     
       <item>
         <title>Hello World!</title>
-        <description>&lt;p&gt;This is my &lt;em&gt;first&lt;/em&gt; blog post. Testing-testing-1-2-3.&lt;/p&gt;
+        <description>&lt;p&gt;This is my &lt;em&gt;first&lt;/em&gt; blog post. Testing-testing-1-2-3. &lt;/p&gt;
 
 &lt;p&gt;The post is being written in &lt;a href=&quot;https://gitbookio.gitbooks.io/markdown/content/index.html&quot;&gt;markdown&lt;/a&gt; and implemented using &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Code snippets are easy to implement:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;hello &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kp&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Hello, %s!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-hello&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;World&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; prints &lt;span class=&quot;s&quot;&gt;&amp;quot;Hello, World!&amp;quot;&lt;/span&gt; to console.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;1&lt;/span&gt; hello &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;2&lt;/span&gt;   &lt;span class=&quot;kp&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Hello, %s!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; name&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;4&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;5&lt;/span&gt; hello&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;World&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# prints &amp;quot;Hello, World!&amp;quot; to console.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Some resources for Jekyll: Try looking at the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt;, take a look at bugs and feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;, and get answers to questions on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 02 Nov 2015 12:58:15 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/jekyll/2015/11/02/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/11/02/welcome-to-jekyll.html</guid>
+        <link>http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world.html</guid>
         
         
         <category>jekyll</category>

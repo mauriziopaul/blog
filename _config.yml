@@ -10,8 +10,8 @@ author :
   feedburner : nil
 # email : paul.maurizio@gmail.com
 description : >
-  This is the site for Paul Maurizio's GitHub pages blog, at the intersection of 
-  infectious diseases, virology, vaccines, genetics, genomics, and statistical modeling.
+  This is the site for Paul Maurizio's GitHub pages blog, discussing research at the intersection of 
+  statistical genetics and host-pathogen interactions.
 production_url : https://mauriziopaul.github.io/blog
 baseurl : "/blog" # the subpath of your site, e.g. /blog
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site
@@ -20,3 +20,5 @@ github_username :  mauriziopaul
 
 # Build settings
 markdown : kramdown
+kramdown :
+    input : GFM
