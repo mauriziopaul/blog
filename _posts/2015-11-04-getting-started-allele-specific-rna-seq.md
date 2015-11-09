@@ -1,8 +1,10 @@
 ---
 layout: post
 title:  "Getting Started With Allele-Specific RNA-Seq"
+author: Paul L. Maurizio
 date: 2015-11-04
 categories: RNA-seq allelic-imbalance
+use_math: true
 ---
 
 As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this [Nature Genetics][natgen-ai-paper] article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available [here][ai-paper-sra-files]. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).
