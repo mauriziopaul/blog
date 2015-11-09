@@ -55,8 +55,13 @@
     <div class="page-content">
       <div class="wrapper">
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Getting Started With Allele-Specific RNA-Seq</h1>
+    <p class="post-meta"><time datetime="2015-11-04T00:00:00-05:00" itemprop="datePublished">Nov 4, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Paul L. Maurizio</span></span></p>
+  </header>
 
-  <head>
+  <div class="post-content" itemprop="articleBody">
   
     <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -66,7 +71,7 @@
       }
     },
     tex2jax: {
-      inlineMath: [ ['$','$'], ['\(', '\)'] ],
+      inlineMath: [ ['$','$'] ],
       displayMath: [ ['$$','$$'] ],
       processEscapes: true,
     }
@@ -76,14 +81,7 @@
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
   
-  </head>
-  
-  <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Getting Started With Allele-Specific RNA-Seq</h1>
-    <p class="post-meta"><time datetime="2015-11-04T00:00:00-05:00" itemprop="datePublished">Nov 4, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Paul L. Maurizio</span></span></p>
-  </header>
 
-  <div class="post-content" itemprop="articleBody">
     <p>As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this <a href="http://www.nature.com/ng/journal/v47/n4/full/ng.3222.html">Nature Genetics</a> article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available <a href="http://www.ncbi.nlm.nih.gov/sra?term=SRP056236">here</a>. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).</p>
 
 <p>Unlike the original study, we will attempt to analyze allelic imbalance in the absence of any inbred strains. We will also be interested in treatment effects, but will have to resort to other data sets to take a look at modeling those effects (i.e. gene induction).</p>
@@ -102,7 +100,7 @@
 
 <p>The model is given here:</p>
 
-<script type="math/tex; mode=display">p(n;n\_i, \pi\_i, \phi)</script>
+<script type="math/tex; mode=display">p(n;n_i, \pi_i, \phi)</script>
 
 <p>Note on imprinted genes: Previous lists are available at <a href="http://www.geneimprint.com/">Gene Imprint</a>, <a href="http://igc.otago.ac.nz/">U Otago</a>, and <a href="http://www.mousebook.org/catalog.php?catalog=imprinting">Mousebook</a>. A new list from the Nat Gen study is available at <a href="http://www.nature.com/ng/journal/v47/n4/extref/ng.3222-S2.xlsx">this site</a>.</p>
 

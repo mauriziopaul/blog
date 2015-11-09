@@ -29,7 +29,7 @@ The raw data is hosted at this gene expression omnibus (GEO) [site][geo-site].
 
 The model is given here:
 
-$$p(n;n\_i, \pi\_i, \phi)$$
+$$p(n;n_i, \pi_i, \phi)$$
 
 Note on imprinted genes: Previous lists are available at [Gene Imprint][geneimprint], [U Otago][uotago], and [Mousebook][mousebook]. A new list from the Nat Gen study is available at [this site][new-imprinted].
 

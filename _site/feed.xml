@@ -6,8 +6,8 @@
 </description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 09 Nov 2015 13:22:32 -0500</pubDate>
-    <lastBuildDate>Mon, 09 Nov 2015 13:22:32 -0500</lastBuildDate>
+    <pubDate>Mon, 09 Nov 2015 13:37:21 -0500</pubDate>
+    <lastBuildDate>Mon, 09 Nov 2015 13:37:21 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -30,7 +30,7 @@
 
 &lt;p&gt;The model is given here:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(n;n\_i, \pi\_i, \phi)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(n;n_i, \pi_i, \phi)&lt;/script&gt;
 
 &lt;p&gt;Note on imprinted genes: Previous lists are available at &lt;a href=&quot;http://www.geneimprint.com/&quot;&gt;Gene Imprint&lt;/a&gt;, &lt;a href=&quot;http://igc.otago.ac.nz/&quot;&gt;U Otago&lt;/a&gt;, and &lt;a href=&quot;http://www.mousebook.org/catalog.php?catalog=imprinting&quot;&gt;Mousebook&lt;/a&gt;. A new list from the Nat Gen study is available at &lt;a href=&quot;http://www.nature.com/ng/journal/v47/n4/extref/ng.3222-S2.xlsx&quot;&gt;this site&lt;/a&gt;.&lt;/p&gt;
 
