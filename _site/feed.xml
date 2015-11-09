@@ -6,9 +6,45 @@
 </description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 08 Nov 2015 02:01:34 -0500</pubDate>
-    <lastBuildDate>Sun, 08 Nov 2015 02:01:34 -0500</lastBuildDate>
+    <pubDate>Mon, 09 Nov 2015 11:20:56 -0500</pubDate>
+    <lastBuildDate>Mon, 09 Nov 2015 11:20:56 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Getting Started With Allele-Specific RNA-Seq</title>
+        <description>&lt;p&gt;As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this &lt;a href=&quot;http://www.nature.com/ng/journal/v47/n4/full/ng.3222.html&quot;&gt;Nature Genetics&lt;/a&gt; article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/sra?term=SRP056236&quot;&gt;here&lt;/a&gt;. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).&lt;/p&gt;
+
+&lt;p&gt;Unlike the original study, we will attempt to analyze allelic imbalance in the absence of any inbred strains. We will also be interested in treatment effects, but will have to resort to other data sets to take a look at modeling those effects (i.e. gene induction).&lt;/p&gt;
+
+&lt;p&gt;To begin, in order to access the sra files easily, download the &lt;a href=&quot;https://github.com/ncbi/sra-tools&quot;&gt;NCBI SRA Toolkit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After installing (decompressing) the archive and adding the package’s */bin/ directory to the path, the sra files can be downloaded from the command line using:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;fastq-dump -X &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt; -Z SRX964397&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The files will be stored here (on a Mac OSX machine):&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;/Users/&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;username&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;/ncbi/public&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The raw data is hosted at this gene expression omnibus (GEO) &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44555&quot;&gt;site&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The model is given here:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(n;n\_i, \pi\_i, \phi)&lt;/script&gt;
+
+&lt;p&gt;Note on imprinted genes: Previous lists are available at &lt;a href=&quot;http://www.geneimprint.com/&quot;&gt;Gene Imprint&lt;/a&gt;, &lt;a href=&quot;http://igc.otago.ac.nz/&quot;&gt;U Otago&lt;/a&gt;, and &lt;a href=&quot;http://www.mousebook.org/catalog.php?catalog=imprinting&quot;&gt;Mousebook&lt;/a&gt;. A new list from the Nat Gen study is available at &lt;a href=&quot;http://www.nature.com/ng/journal/v47/n4/extref/ng.3222-S2.xlsx&quot;&gt;this site&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 04 Nov 2015 00:00:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/04/getting-started-allele-specific-rna-seq.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/04/getting-started-allele-specific-rna-seq.html</guid>
+        
+        
+        <category>rna-seq</category>
+        
+        <category>allelic-imbalance</category>
+        
+      </item>
     
       <item>
         <title>Hello World!</title>
