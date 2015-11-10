@@ -8,7 +8,7 @@ author :
   twitter : TweetNTD
   feedburner : nil
 # email : paul.maurizio@gmail.com
-description : Statistical modeling, and host genetics of viral pathogenesis
+description : Statistical modeling, and genetics of host-pathogen interactions
 production_url : https://mauriziopaul.github.io/blog
 baseurl : "/blog" # the subpath of your site, e.g. /blog
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site
