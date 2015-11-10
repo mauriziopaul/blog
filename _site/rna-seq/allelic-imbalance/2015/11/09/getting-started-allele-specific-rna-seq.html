@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Getting Started With Allele-Specific RNA-Seq</title>
-  <meta name="description" content="As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this Nature Genetics article on allelic imbala...">
+  <title>Toward the Estimation of Treatment Effects in Allele-Specific RNA-Seq</title>
+  <meta name="description" content="">
 
   <link rel="stylesheet" href="/blog/css/main.css">
-  <link rel="canonical" href="http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/04/getting-started-allele-specific-rna-seq.html">
+  <link rel="canonical" href="http://mauriziopaul.github.io/blog/rna-seq/allelic-imbalance/2015/11/09/getting-started-allele-specific-rna-seq.html">
   <link rel="alternate" type="application/rss+xml" title="Simple Blog (mauriziopaul)" href="http://mauriziopaul.github.io/blog/feed.xml">
 </head>
 
@@ -57,8 +57,8 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Getting Started With Allele-Specific RNA-Seq</h1>
-    <p class="post-meta"><time datetime="2015-11-04T00:00:00-05:00" itemprop="datePublished">Nov 4, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Paul L. Maurizio</span></span></p>
+    <h1 class="post-title" itemprop="name headline">Toward the Estimation of Treatment Effects in Allele-Specific RNA-Seq</h1>
+    <p class="post-meta"><time datetime="2015-11-09T00:00:00-05:00" itemprop="datePublished">Nov 9, 2015</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Paul L. Maurizio</span></span></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -82,7 +82,9 @@
 </script>
   
 
-    <p>As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this <a href="http://www.nature.com/ng/journal/v47/n4/full/ng.3222.html">Nature Genetics</a> article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available <a href="http://www.ncbi.nlm.nih.gov/sra?term=SRP056236">here</a>. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).</p>
+    <p><img src="/blog/images/founderSNPs.png" alt="Founders" /></p>
+
+<p>As a starting point for learning to analyze allele-specific RNA-seq reads, we will use existing data sets from this <a href="http://www.nature.com/ng/journal/v47/n4/full/ng.3222.html">Nature Genetics</a> article on allelic imbalance in crosses of wild-derived mice. The sequence read archive (sra) files from this study are available <a href="http://www.ncbi.nlm.nih.gov/sra?term=SRP056236">here</a>. We will start with WSB x PWK females, of which there are 6 files (SRR1924540, SRR1924539, SRR1924538, SRR1924535, SRR1924534, SRR1924529), and PWK x WSB females, of which there are 5 files (SRR1924516, SRR1924511, SRR1924510, SRR1924509, SRR1924508).</p>
 
 <p>Unlike the original study, we will attempt to analyze allelic imbalance in the absence of any inbred strains. We will also be interested in treatment effects, but will have to resort to other data sets to take a look at modeling those effects (i.e. gene induction).</p>
 
@@ -98,9 +100,46 @@
 
 <p>The raw data is hosted at this gene expression omnibus (GEO) <a href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE44555">site</a>.</p>
 
-<p>The model is given here:</p>
+<h2 id="gene-expression-total-and-allele-specific-read-counts-trecase">Gene Expression: Total and Allele-Specific Read Counts (TReCASE)</h2>
 
-<script type="math/tex; mode=display">p(n;n_i, \pi_i, \phi)</script>
+<p>Read counts are modeled for both autosomal and sex chromosomes. Some genes may only have a total read count (TReC) and not an allele-specific read count (ASReC / ASE), because there is a lack of SNPs in these transcripts between founder chromosomes, or because there is not sufficient depth to calculate allele-specificity.</p>
+
+<p>For a given sample, $i$, and parental strain $B$, we can start by defining a binomial distribution to model the probability of the allele-specific read counts $ Y_i $ being $ n_{iB} $, given the total read counts $ Y_i $. We do this for each gene, so I am omitting any gene-specific subscript. The sample-specific probability of an allele-specific read count for a given gene is $ \pi_{iB}$, with $E(Y_i) = n_i \cdot \pi_{iB}$, and variance $Var(Y_i)=n_i \cdot \pi_{iB} (1-\pi_{iB})$:</p>
+
+<p><script type="math/tex">Y_i \sim Bin(n_i, \pi_{iB})</script><br />
+<script type="math/tex">Y_i \in \{0, 1, 2, ..., n_i\}</script><br />
+<script type="math/tex">Pr(Y_i=n_{iB}; n_i, \pi_{iB}) = {n_i \choose n_{iB}} (\pi_{iB})^{n_{iB}}(1-\pi_{iB})^{n_i-n_{iB}}</script></p>
+
+<p>We can then model the probability $\pi_{iB}$ of an allele-specific read count as a beta-distribution:</p>
+
+<p>$\pi_{iB} \sim Beta(\alpha, \beta)$.</p>
+
+<p>And we use a link function to estimate the genetic/POE effects on expression. Since my samples are all female, and we have no inbred mice, there is no strain effect and no sex-specific effect being modeled:</p>
+
+<script type="math/tex; mode=display">\log(\pi_{iB})=\beta_{mat}x_i</script>
+
+<p>where $x_i=0$ when the allele $B$ is paternal, whereas $x_i=1$ when it is maternal.</p>
+
+<p>However, we would like to adjust for the real-world scenario where the read counts are overdispersed, using the parameter ($\phi$):</p>
+
+<p><script type="math/tex">Y_i \sim Bin(n_i, \pi_{iB}, \phi)</script><br />
+<script type="math/tex">Y_i \in \{0, 1, 2, ..., n_i\}</script><br />
+<script type="math/tex">Pr(Y_i=n_{iB}; n_i, \pi_{iB}) = {n_i \choose n_{iB}} (\pi_{iB})^{n_{iB}}(1-\pi_{iB})^{n_i-n_{iB}}</script></p>
+
+<script type="math/tex; mode=display">Pr(N_B=n_B) = {n_T \choose n_B} \pi_B^{n_B}(1-\pi_B)^{n_T-n_B}</script>
+
+<script type="math/tex; mode=display">f_{BB}(n_{iB};n_i, \pi_i, \phi)={n_i \choose n_{iB}}
+\frac{\prod_{k=0}^{n_{iB}-1}(\pi_i+k\phi)\pi_{k=0}^{n_i-n_{iB}-1}(1-\pi_i+k\phi)}
+{\prod_{k=1}^{n_i-1}(1+k\phi)}</script>
+
+<h2 id="questions">Questions:</h2>
+
+<ol>
+  <li>Should I simulate my data, and how should I do it?</li>
+  <li>How does restricting the search for DE / DAE to known imprinted genes influence my detction power?</li>
+  <li>Should I include a technical replicate, or replicates?</li>
+  <li>What about standard <a href="https://www.thermofisher.com/order/catalog/product/4456740">spike in</a> controls? </li>
+</ol>
 
 <p>Note on imprinted genes: Previous lists are available at <a href="http://www.geneimprint.com/">Gene Imprint</a>, <a href="http://igc.otago.ac.nz/">U Otago</a>, and <a href="http://www.mousebook.org/catalog.php?catalog=imprinting">Mousebook</a>. A new list from the Nat Gen study is available at <a href="http://www.nature.com/ng/journal/v47/n4/extref/ng.3222-S2.xlsx">this site</a>.</p>
 
