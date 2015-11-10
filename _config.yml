@@ -1,4 +1,3 @@
-
 # Site settings
 highlighter: pygments
 
@@ -9,9 +8,7 @@ author :
   twitter : TweetNTD
   feedburner : nil
 # email : paul.maurizio@gmail.com
-description : >
-  This is the site for Paul Maurizio's GitHub pages blog, discussing research at the intersection of 
-  statistical genetics and host-pathogen interactions.
+description : Statistical modeling, and host genetics of viral pathogenesis
 production_url : https://mauriziopaul.github.io/blog
 baseurl : "/blog" # the subpath of your site, e.g. /blog
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site
