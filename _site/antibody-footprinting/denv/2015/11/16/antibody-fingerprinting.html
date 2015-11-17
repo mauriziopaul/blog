@@ -195,7 +195,7 @@ C.scaled
    THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
        <span class="m">2.5</span>        <span class="m">9.0</span>       <span class="m">16.0</span>       <span class="m">14.0</span>       <span class="m">11.0</span>       <span class="m">10.0</span>       <span class="m">12.0</span></code></pre></div>
 
-<p>Here is the final script:</p>
+<p>Here is the final script <code>ab-fp-script.R</code>:</p>
 
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">rm</span><span class="p">(</span><span class="kt">list</span><span class="o">=</span><span class="kp">ls</span><span class="p">())</span>
 abFile 			<span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;neut-rank.csv&quot;</span><span class="p">,</span> check.names<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
@@ -247,18 +247,39 @@ find.coefficients <span class="o">&lt;-</span> <span class="kr">function</span><
 <span class="p">}</span>
 
 coef <span class="o">&lt;-</span> find.coefficients<span class="p">(</span>abMatrixRanks<span class="o">=</span>abMatrixRanks<span class="p">,</span> seraFileRanks<span class="o">=</span>seraFileRanks<span class="p">)</span>
-coef1 <span class="o">&lt;-</span> <span class="kp">apply</span><span class="p">(</span>X<span class="o">=</span>coef<span class="p">,</span> MARGIN<span class="o">=</span><span class="m">2</span><span class="p">,</span> FUN<span class="o">=</span><span class="kp">rev</span><span class="p">)</span>
 write.csv<span class="p">(</span>coef<span class="p">,</span> <span class="s">&quot;coefficients.csv&quot;</span><span class="p">)</span>
-heatmap<span class="p">(</span>coef1<span class="p">,</span> Rowv<span class="o">=</span><span class="kc">NA</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
+<span class="c1">#Alternate, simple heatmap code, without legend</span>
+<span class="c1">#coef1 &lt;- apply(X=coef, MARGIN=2, FUN=rev)</span>
+<span class="c1">#heatmap(coef1, Rowv=NA, Colv=NA)</span>
 
+<span class="c1"># Plot Heatmap, unclustered</span>
 <span class="kn">library</span><span class="p">(</span><span class="s">&quot;gplots&quot;</span><span class="p">)</span>
-
 <span class="kn">library</span><span class="p">(</span><span class="s">&quot;RColorBrewer&quot;</span><span class="p">)</span>
 colors <span class="o">&lt;-</span> colorRampPalette<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;beige&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">))</span>
-pdf<span class="p">(</span><span class="s">&quot;heatmap.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">8</span><span class="p">,</span> height<span class="o">=</span><span class="m">8</span><span class="p">)</span>
+lmat <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span><span class="kt">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
+lwid <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
+lhei <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+pdf<span class="p">(</span><span class="s">&quot;heatmap1.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">8</span><span class="p">,</span> height<span class="o">=</span><span class="m">8</span><span class="p">)</span>
 heatmap.2<span class="p">(</span>coef<span class="p">,</span> dendrogram<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> col<span class="o">=</span>colors<span class="p">,</span> trace<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> 
-	scale<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> margins<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> Rowv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+	scale<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> margins<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> Rowv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> 
+	lmat<span class="o">=</span>lmat<span class="p">,</span> lwid<span class="o">=</span>lwid<span class="p">,</span> lhei<span class="o">=</span>lhei<span class="p">,</span> density.info<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
+dev.off<span class="p">()</span>
+
+pdf<span class="p">(</span><span class="s">&quot;stackedbars.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">12</span><span class="p">,</span> height<span class="o">=</span><span class="m">6</span><span class="p">)</span>
+colors <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="kp">length</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">)))</span>
+barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>coef<span class="p">),</span> col<span class="o">=</span>colors<span class="p">,</span> xlim<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="kp">length</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">))</span><span class="o">*</span><span class="m">2</span><span class="p">))</span>
+legend<span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span> legend<span class="o">=</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">),</span> fill<span class="o">=</span>colors<span class="p">)</span>
 dev.off<span class="p">()</span></code></pre></div>
+
+<h2 id="result-from-original-mathematica-vs-br-result-from-my-r-script">Result from original Mathematica vs. <br /> Result from my R script</h2>
+
+<p class="center"><img src="/blog/images/afp-mabs-sera_find-fit_heatmap.tiff" alt="" /></p>
+
+<p><img src="/blog/images/afp-heatmap1.pdf" alt="" /></p>
+
+<h2 id="alternative-visualization-using-stacked-bars">Alternative visualization using stacked bars</h2>
+
+<p><img src="/blog/images/afp-stackedbars.pdf" alt="" /></p>
 
 <div class="footnotes">
   <ol>

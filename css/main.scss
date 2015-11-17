@@ -42,7 +42,10 @@ $on-laptop:        800px;
     }
 }
 
-
+// To center images
+.center {
+    text-align: center;
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import

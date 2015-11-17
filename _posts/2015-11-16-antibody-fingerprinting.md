@@ -129,10 +129,9 @@ or
        2.5        9.0       16.0       14.0       11.0       10.0       12.0
 {% endhighlight %}
 
-Here is the final script:
+Here is the final script `ab-fp-script.R`:
 
 {% highlight R %}
-
 rm(list=ls())
 abFile 			<- read.csv("neut-rank.csv", check.names=FALSE)
 seraFile		<- read.csv("sera_neut.csv", check.names=FALSE)
@@ -183,25 +182,41 @@ find.coefficients <- function(abMatrixRanks, seraFileRanks){
 }
 
 coef <- find.coefficients(abMatrixRanks=abMatrixRanks, seraFileRanks=seraFileRanks)
-coef1 <- apply(X=coef, MARGIN=2, FUN=rev)
 write.csv(coef, "coefficients.csv")
-heatmap(coef1, Rowv=NA, Colv=NA)
+#Alternate, simple heatmap code, without legend
+#coef1 <- apply(X=coef, MARGIN=2, FUN=rev)
+#heatmap(coef1, Rowv=NA, Colv=NA)
 
+# Plot Heatmap, unclustered
 library("gplots")
-
 library("RColorBrewer")
 colors <- colorRampPalette(c("beige", "blue"))
-pdf("heatmap.pdf", width=8, height=8)
+lmat = rbind(c(0,3),c(2,1),c(0,4))
+lwid = c(1.5,4)
+lhei = c(1.5,4,1)
+pdf("heatmap1.pdf", width=8, height=8)
 heatmap.2(coef, dendrogram="none", col=colors, trace="none", 
-	scale="none", margins=c(8,5), Rowv=FALSE, Colv=FALSE)
+	scale="none", margins=c(8,5), Rowv=FALSE, Colv=FALSE, 
+	lmat=lmat, lwid=lwid, lhei=lhei, density.info="none")
+dev.off()
+
+pdf("stackedbars.pdf", width=12, height=6)
+colors <- rainbow(length(colnames(coef)))
+barplot(t(coef), col=colors, xlim=c(0,length(colnames(coef))*2))
+legend("topright", legend=colnames(coef), fill=colors)
 dev.off()
 {% endhighlight %}
 
-## Result from original Mathematica script
-![](/blog/images/mabs-sera_find-fit_heatmap.tiff)
+## Result from original Mathematica vs. <br/> Result from my R script
 
-## Result from my R script
-![](/blog/images/heatmap.pdf)
+{: .center}
+![](/blog/images/afp-mabs-sera_find-fit_heatmap.tiff)
+
+![](/blog/images/afp-heatmap1.pdf)
+
+## Alternative visualization using stacked bars
+
+![](/blog/images/afp-stackedbars.pdf)
 
 
 [^1]:(Alternative options may exist with the `optim` or `constrOptim` functions in the `R` package `stats`.)
