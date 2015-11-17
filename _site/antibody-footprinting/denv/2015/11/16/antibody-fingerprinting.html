@@ -155,7 +155,31 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},<br />
 \parallel \boldsymbol{D_m}-\boldsymbol{R} \cdot \boldsymbol{C_m} \parallel<br />
 \end{equation}</p>
 
-<p>where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\{v \times K_T\}$ matrix, $C_m$ is a $\{K_T \times 1\}$ column vector, and $D_m$ is a $\{1 \times v\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x_1^2 + \cdots + x_n^2}$</p>
+<p>where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\{v \times K_T\}$ matrix, $C_m$ is a $\{K_T \times 1\}$ column vector, and $D_m$ is a $\{1 \times v\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x_1^2 + \cdots + x_n^2}$.</p>
+
+<p>We can think of this as a constrained version of the minimization that we perform for ordinary linear regression, without an intercept:</p>
+
+<p>\begin{equation}<br />
+\parallel \boldsymbol{y}-\boldsymbol{X} \cdot \boldsymbol{\beta} \parallel<br />
+\end{equation}</p>
+
+<p>Where $\boldsymbol{y}= \boldsymbol{D_m}$, $\boldsymbol{X}=\boldsymbol{R}$, and $\boldsymbol{\beta}=\boldsymbol{C_m}$.</p>
+
+<p>The key words here (to search on Google) are constrained optimization and regression. We can use <code>nnls</code> (non-negative least squares, Lawson-Hanson-flavored). <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> All that is left to do, is to scale the coefficients such that they sum to 1 (divide by the sum of the coefficients).</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span><span class="s">&quot;nnls&quot;</span><span class="p">)</span>
+A 		<span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
+b 		<span class="o">&lt;-</span> <span class="kp">as.vector</span><span class="p">(</span>seraFileRanks<span class="p">[,</span><span class="m">1</span><span class="p">])</span>
+C 		<span class="o">&lt;-</span> nnls<span class="p">(</span>A<span class="o">=</span>A<span class="p">,</span> b<span class="o">=</span>b<span class="p">)</span>
+C<span class="o">$</span>x
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.30495756</span> <span class="m">0.05718681</span> <span class="m">0.11185758</span>
+ <span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.48295297</span> <span class="m">0.00000000</span>
+<span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">)</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.9569549</span>
+C.scaled 	<span class="o">&lt;-</span> C<span class="o">$</span>x<span class="o">/</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">))</span>
+C.scaled
+ <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.31867495</span> <span class="m">0.05975915</span> <span class="m">0.11688908</span>
+ <span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.50467683</span> <span class="m">0.00000000</span></code></pre></div>
 
 <p>For instance, performing the calculation on the first row (first serum) would give us:</p>
 
@@ -164,11 +188,20 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},<br />
 <p>or</p>
 
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span> seraFileRanks<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
-   <span class="m">1</span>    <span class="m">2</span>    <span class="m">3</span>    <span class="m">4</span>    <span class="m">5</span>    <span class="m">6</span>    <span class="m">7</span>    <span class="m">8</span>    <span class="m">9</span>   <span class="m">10</span>   <span class="m">11</span>   <span class="m">12</span>   <span class="m">13</span>   <span class="m">14</span>   <span class="m">15</span>   <span class="m">16</span>
-<span class="m">17.0</span> <span class="m">18.0</span>  <span class="m">2.5</span>  <span class="m">7.0</span> <span class="m">15.0</span>  <span class="m">2.5</span> <span class="m">20.0</span> <span class="m">21.0</span>  <span class="m">2.5</span>  <span class="m">5.0</span>  <span class="m">8.0</span> <span class="m">19.0</span> <span class="m">13.0</span>  <span class="m">6.0</span>  <span class="m">2.5</span>  <span class="m">9.0</span>
-  <span class="m">17</span>   <span class="m">18</span>   <span class="m">19</span>   <span class="m">20</span>   <span class="m">21</span>
-<span class="m">16.0</span> <span class="m">14.0</span> <span class="m">11.0</span> <span class="m">10.0</span> <span class="m">12.0</span></code></pre></div>
+    <span class="m">6101.1</span>     Bal.01  BG1168.01    CAAN.A2   DU156.12   DU422.01   JRCSF.JB
+      <span class="m">17.0</span>       <span class="m">18.0</span>        <span class="m">2.5</span>        <span class="m">7.0</span>       <span class="m">15.0</span>        <span class="m">2.5</span>       <span class="m">20.0</span>
+   JRFL.JB KER2018.11     PVO.04    Q168.a2     Q23.17    Q769.h5    RW020.2
+      <span class="m">21.0</span>        <span class="m">2.5</span>        <span class="m">5.0</span>        <span class="m">8.0</span>       <span class="m">19.0</span>       <span class="m">13.0</span>        <span class="m">6.0</span>
+   THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
+       <span class="m">2.5</span>        <span class="m">9.0</span>       <span class="m">16.0</span>       <span class="m">14.0</span>       <span class="m">11.0</span>       <span class="m">10.0</span>       <span class="m">12.0</span></code></pre></div>
 
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>(Alternative options may exist with the <code>optim</code> or <code>constrOptim</code> functions in the <code>R</code> package <code>stats</code>.) <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
   </div>
 

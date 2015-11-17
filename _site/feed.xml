@@ -5,8 +5,8 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 16 Nov 2015 15:31:11 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 15:31:11 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2015 16:51:23 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2015 16:51:23 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -84,7 +84,31 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},&lt;br /&gt;
 \parallel \boldsymbol{D_m}-\boldsymbol{R} \cdot \boldsymbol{C_m} \parallel&lt;br /&gt;
 \end{equation}&lt;/p&gt;
 
-&lt;p&gt;where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\{v \times K_T\}$ matrix, $C_m$ is a $\{K_T \times 1\}$ column vector, and $D_m$ is a $\{1 \times v\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x_1^2 + \cdots + x_n^2}$&lt;/p&gt;
+&lt;p&gt;where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\{v \times K_T\}$ matrix, $C_m$ is a $\{K_T \times 1\}$ column vector, and $D_m$ is a $\{1 \times v\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x_1^2 + \cdots + x_n^2}$.&lt;/p&gt;
+
+&lt;p&gt;We can think of this as a constrained version of the minimization that we perform for ordinary linear regression, without an intercept:&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}&lt;br /&gt;
+\parallel \boldsymbol{y}-\boldsymbol{X} \cdot \boldsymbol{\beta} \parallel&lt;br /&gt;
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;Where $\boldsymbol{y}= \boldsymbol{D_m}$, $\boldsymbol{X}=\boldsymbol{R}$, and $\boldsymbol{\beta}=\boldsymbol{C_m}$.&lt;/p&gt;
+
+&lt;p&gt;The key words here (to search on Google) are constrained optimization and regression. We can use &lt;code&gt;nnls&lt;/code&gt; (non-negative least squares, Lawson-Hanson-flavored). &lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; All that is left to do, is to scale the coefficients such that they sum to 1 (divide by the sum of the coefficients).&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;nnls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+A 		&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;abMatrixRanks&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+b 		&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seraFileRanks&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+C 		&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; nnls&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;A&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;A&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+C&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;x
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.30495756&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05718681&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.11185758&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.48295297&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.9569549&lt;/span&gt;
+C.scaled 	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; C&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;C&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+C.scaled
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.31867495&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.05975915&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.11688908&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.50467683&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.00000000&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;For instance, performing the calculation on the first row (first serum) would give us:&lt;/p&gt;
 
@@ -93,11 +117,20 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},&lt;br /&gt;
 &lt;p&gt;or&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; seraFileRanks&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-   &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;    &lt;span class=&quot;m&quot;&gt;9&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;13&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;16&lt;/span&gt;
-&lt;span class=&quot;m&quot;&gt;17.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;18.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;7.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;21.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;5.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;8.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;13.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;6.0&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;  &lt;span class=&quot;m&quot;&gt;9.0&lt;/span&gt;
-  &lt;span class=&quot;m&quot;&gt;17&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;19&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;   &lt;span class=&quot;m&quot;&gt;21&lt;/span&gt;
-&lt;span class=&quot;m&quot;&gt;16.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10.0&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12.0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;m&quot;&gt;6101.1&lt;/span&gt;     Bal.01  BG1168.01    CAAN.A2   DU156.12   DU422.01   JRCSF.JB
+      &lt;span class=&quot;m&quot;&gt;17.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;18.0&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;7.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;15.0&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;20.0&lt;/span&gt;
+   JRFL.JB KER2018.11     PVO.04    Q168.a2     Q23.17    Q769.h5    RW020.2
+      &lt;span class=&quot;m&quot;&gt;21.0&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;5.0&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;8.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;19.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;13.0&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;6.0&lt;/span&gt;
+   THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
+       &lt;span class=&quot;m&quot;&gt;2.5&lt;/span&gt;        &lt;span class=&quot;m&quot;&gt;9.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;16.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;14.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;11.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;10.0&lt;/span&gt;       &lt;span class=&quot;m&quot;&gt;12.0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;(Alternative options may exist with the &lt;code&gt;optim&lt;/code&gt; or &lt;code&gt;constrOptim&lt;/code&gt; functions in the &lt;code&gt;R&lt;/code&gt; package &lt;code&gt;stats&lt;/code&gt;.) &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Mon, 16 Nov 2015 00:00:00 -0500</pubDate>
         <link>http://mauriziopaul.github.io/blog/antibody-footprinting/denv/2015/11/16/antibody-fingerprinting.html</link>

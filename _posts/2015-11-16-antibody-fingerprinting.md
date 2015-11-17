@@ -83,7 +83,35 @@ We want to minimize:
 \parallel \boldsymbol{D\_m}-\boldsymbol{R} \cdot \boldsymbol{C\_m} \parallel
 \end{equation}
 
-where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\\{v \times K\_T\\}$ matrix, $C\_m$ is a $\\{K\_T \times 1\\}$ column vector, and $D\_m$ is a $\\{1 \times v\\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x_1^2 + \cdots + x_n^2}$
+where we have constrained $\sum_{k \in K} c_k^m =1$, and $0 \leq c_k^m \leq 1$. In our case $R$ is a $\\{v \times K\_T\\}$ matrix, $C\_m$ is a $\\{K\_T \times 1\\}$ column vector, and $D\_m$ is a $\\{1 \times v\\}$ row vector, and $\parallel x\parallel$ is the Euclidean or $\ell^2$ norm of $x$: $\parallel x\parallel = \sqrt{x\_1^2 + \cdots + x\_n^2}$.
+
+We can think of this as a constrained version of the minimization that we perform for ordinary linear regression, without an intercept:
+
+\begin{equation}
+\parallel \boldsymbol{y}-\boldsymbol{X} \cdot \boldsymbol{\beta} \parallel
+\end{equation}
+
+Where $\boldsymbol{y}= \boldsymbol{D\_m}$, $\boldsymbol{X}=\boldsymbol{R}$, and $\boldsymbol{\beta}=\boldsymbol{C\_m}$.
+
+The key words here (to search on Google) are constrained optimization and regression. We can use `nnls` (non-negative least squares, Lawson-Hanson-flavored). [^1] All that is left to do, is to scale the coefficients such that they sum to 1 (divide by the sum of the coefficients).
+
+
+{% highlight R %}
+library("nnls")
+A 		<- as.matrix(abMatrixRanks)
+b 		<- as.vector(seraFileRanks[,1])
+C 		<- nnls(A=A, b=b)
+C$x
+ [1] 0.00000000 0.00000000 0.00000000 0.30495756 0.05718681 0.11185758
+ [7] 0.00000000 0.00000000 0.48295297 0.00000000
+sum(C$x)
+[1] 0.9569549
+C.scaled 	<- C$x/(sum(C$x))
+C.scaled
+ [1] 0.00000000 0.00000000 0.00000000 0.31867495 0.05975915 0.11688908
+ [7] 0.00000000 0.00000000 0.50467683 0.00000000
+{% endhighlight %}
+
 
 For instance, performing the calculation on the first row (first serum) would give us:
 
@@ -93,11 +121,14 @@ or
 
 {% highlight R %}
 > seraFileRanks[,1]
-   1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16
-17.0 18.0  2.5  7.0 15.0  2.5 20.0 21.0  2.5  5.0  8.0 19.0 13.0  6.0  2.5  9.0
-  17   18   19   20   21
-16.0 14.0 11.0 10.0 12.0
+    6101.1     Bal.01  BG1168.01    CAAN.A2   DU156.12   DU422.01   JRCSF.JB
+      17.0       18.0        2.5        7.0       15.0        2.5       20.0
+   JRFL.JB KER2018.11     PVO.04    Q168.a2     Q23.17    Q769.h5    RW020.2
+      21.0        2.5        5.0        8.0       19.0       13.0        6.0
+   THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
+       2.5        9.0       16.0       14.0       11.0       10.0       12.0
 {% endhighlight %}
 
 
+[^1]:(Alternative options may exist with the `optim` or `constrOptim` functions in the `R` package `stats`.)
 [science-paper]: http://www.ncbi.nlm.nih.gov/pubmed/23661761
