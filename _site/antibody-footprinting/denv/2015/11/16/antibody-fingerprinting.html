@@ -82,7 +82,7 @@
 </script>
   
 
-    <p>In this <a href="http://www.ncbi.nlm.nih.gov/pubmed/23661761">Science paper</a> by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of <em>antibody fingerprints</em> that are then used to characterize multiclonal sera. The notation is as follows. </p>
+    <p>In this <a href="http://www.ncbi.nlm.nih.gov/pubmed/23661761">Science paper</a> by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of <em>antibody fingerprints</em> that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in <code>R</code> is given below. </p>
 
 <h2 id="antibody-clustering">Antibody Clustering</h2>
 <p>Stendarting with the antibody clustering analysis (on page 4 of the supplemental), let:</p>
@@ -91,7 +91,7 @@
 N_j = \{n_{1j}, n_{2j}, \cdots, n_{ij}, \cdots, n_{vj}\} ,<br />
 \end{equation}</p>
 
-<p>where $N_j$ is the neutralization fingerprint for antibody $j$, and where $n_{ij}$ is the neutralization potency, for which antibody $j$ neutralizes virus strain $i$, and $v$ represents the total number of virus strains. Then, they transform $N_j$ into a rank vector $N_j^R$, where the rank for strain $i$ is replaced by the rank, obtained by sorting the $n_{ij}$ values by potency (highest potency $=1$). For any two given antibodies $j_1$ and $j_2$, the Spearman rank correlation is calculated for the two rank vectors $N_{j_1}^R$ and $N_{j_2}^R$. To copy their example in <code>R</code>:</p>
+<p>where $N_j$ is the neutralization fingerprint for antibody $j$, and where $n_{ij}$ is the neutralization potency, for which antibody $j$ neutralizes virus strain $i$, and $v$ represents the total number of virus strains. Then, they transform $N_j$ into a rank vector $N_j^R$, where the potency for strain $i$ is replaced by the rank, obtained by sorting the $n_{ij}$ values by potency (highest potency $=1$). For any two given antibodies $j_1$ and $j_2$, the Spearman correlation is calculated for the two rank vectors $N_{j_1}^R$ and $N_{j_2}^R$. To copy their example in <code>R</code>:</p>
 
 <div class="highlight"><pre><code class="language-r" data-lang="r">na1 <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">20.7</span><span class="p">,</span> <span class="m">11.3</span><span class="p">,</span> <span class="m">13.4</span><span class="p">)</span>
 na2 <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">11.4</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.7</span><span class="p">,</span> <span class="m">3.1</span><span class="p">)</span>
@@ -194,6 +194,71 @@ C.scaled
       <span class="m">21.0</span>        <span class="m">2.5</span>        <span class="m">5.0</span>        <span class="m">8.0</span>       <span class="m">19.0</span>       <span class="m">13.0</span>        <span class="m">6.0</span>
    THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
        <span class="m">2.5</span>        <span class="m">9.0</span>       <span class="m">16.0</span>       <span class="m">14.0</span>       <span class="m">11.0</span>       <span class="m">10.0</span>       <span class="m">12.0</span></code></pre></div>
+
+<p>Here is the final script:</p>
+
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">rm</span><span class="p">(</span><span class="kt">list</span><span class="o">=</span><span class="kp">ls</span><span class="p">())</span>
+abFile 			<span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;neut-rank.csv&quot;</span><span class="p">,</span> check.names<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+seraFile		<span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;sera_neut.csv&quot;</span><span class="p">,</span> check.names<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+abFileSize 		<span class="o">&lt;-</span> <span class="kp">dim</span><span class="p">(</span>abFile<span class="p">)</span>
+seraFileSize 	<span class="o">&lt;-</span> <span class="kp">dim</span><span class="p">(</span>seraFile<span class="p">)</span>
+numAbStrains 	<span class="o">&lt;-</span> abFileSize<span class="p">[</span><span class="m">1</span><span class="p">]</span>
+numSeraStrains  <span class="o">&lt;-</span> seraFileSize<span class="p">[</span><span class="m">1</span><span class="p">]</span>
+numAbs 			<span class="o">&lt;-</span> abFileSize<span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
+numSera 		<span class="o">&lt;-</span> seraFileSize<span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
+abNames			<span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>abFile<span class="p">)</span>
+seraNames		<span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>seraFile<span class="p">)</span>
+
+<span class="c1">## Sort by Strain Name</span>
+abFileSorted 	<span class="o">&lt;-</span> abFile<span class="p">[</span><span class="kp">with</span><span class="p">(</span>abFile<span class="p">,</span> <span class="kp">order</span><span class="p">(</span>strain<span class="p">)),</span> <span class="p">]</span>
+seraFileSorted 	<span class="o">&lt;-</span> seraFile<span class="p">[</span><span class="kp">with</span><span class="p">(</span>seraFile<span class="p">,</span> <span class="kp">order</span><span class="p">(</span>strain<span class="p">)),</span> <span class="p">]</span>
+
+<span class="c1">## Ranks</span>
+abMatrixRanks 	<span class="o">&lt;-</span> abFileSorted<span class="p">[,</span><span class="m">-1</span><span class="p">]</span>
+seraFileRanks	<span class="o">&lt;-</span> <span class="kp">apply</span><span class="p">(</span>X<span class="o">=</span>seraFileSorted<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> MARGIN<span class="o">=</span><span class="m">2</span><span class="p">,</span> FUN<span class="o">=</span><span class="kr">function</span><span class="p">(</span>x<span class="p">){</span><span class="kp">rank</span><span class="p">(</span><span class="o">-</span>x<span class="p">)})</span>
+
+<span class="c1">## Names</span>
+abStrainNames 	<span class="o">&lt;-</span> abFileSorted<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="kp">rownames</span><span class="p">(</span>abMatrixRanks<span class="p">)</span> <span class="o">&lt;-</span> abStrainNames
+seraStrainNames	<span class="o">&lt;-</span> seraFileSorted<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="kp">rownames</span><span class="p">(</span>seraFileRanks<span class="p">)</span> <span class="o">&lt;-</span> seraStrainNames
+
+<span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="kp">toString</span><span class="p">(</span>abStrainNames<span class="p">)</span><span class="o">==</span><span class="kp">toString</span><span class="p">(</span>seraStrainNames<span class="p">))){</span>
+	<span class="kp">stop</span><span class="p">(</span><span class="s">&quot;Names do not match in your antibody and strain files.&quot;</span><span class="p">)</span>
+	<span class="p">}</span><span class="kp">else</span><span class="p">{</span>
+		<span class="kp">print</span><span class="p">(</span><span class="s">&quot;Good, your antibody and strain file row names match!&quot;</span><span class="p">)</span>
+	<span class="p">}</span>
+
+<span class="c1">## Perform Minimization (using non-negative least squares)</span>
+<span class="kn">library</span><span class="p">(</span><span class="s">&quot;nnls&quot;</span><span class="p">)</span>
+
+find.coefficients <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>abMatrixRanks<span class="p">,</span> seraFileRanks<span class="p">){</span>
+	A <span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
+	c.matrix <span class="o">&lt;-</span> <span class="kt">matrix</span><span class="p">(</span>data<span class="o">=</span><span class="kc">NA</span><span class="p">,</span> nrow<span class="o">=</span><span class="kp">ncol</span><span class="p">(</span>seraFileRanks<span class="p">),</span> ncol<span class="o">=</span><span class="kp">ncol</span><span class="p">(</span>abMatrixRanks<span class="p">))</span>
+	<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">ncol</span><span class="p">(</span>seraFileRanks<span class="p">)){</span>
+		b 				<span class="o">&lt;-</span> <span class="kp">as.vector</span><span class="p">(</span>seraFileRanks<span class="p">[,</span>i<span class="p">])</span>
+		C 				<span class="o">&lt;-</span> nnls<span class="p">(</span>A<span class="o">=</span>A<span class="p">,</span> b<span class="o">=</span>b<span class="p">)</span>
+		C.scaled		<span class="o">&lt;-</span> C<span class="o">$</span>x<span class="o">/</span><span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">)</span>
+		c.matrix<span class="p">[</span>i<span class="p">,]</span>	<span class="o">&lt;-</span> C.scaled
+	<span class="p">}</span>
+	<span class="kp">rownames</span><span class="p">(</span>c.matrix<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>seraFileRanks<span class="p">)</span>
+	<span class="kp">colnames</span><span class="p">(</span>c.matrix<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
+	<span class="kr">return</span><span class="p">(</span>c.matrix<span class="p">)</span>
+<span class="p">}</span>
+
+coef <span class="o">&lt;-</span> find.coefficients<span class="p">(</span>abMatrixRanks<span class="o">=</span>abMatrixRanks<span class="p">,</span> seraFileRanks<span class="o">=</span>seraFileRanks<span class="p">)</span>
+coef1 <span class="o">&lt;-</span> <span class="kp">apply</span><span class="p">(</span>X<span class="o">=</span>coef<span class="p">,</span> MARGIN<span class="o">=</span><span class="m">2</span><span class="p">,</span> FUN<span class="o">=</span><span class="kp">rev</span><span class="p">)</span>
+write.csv<span class="p">(</span>coef<span class="p">,</span> <span class="s">&quot;coefficients.csv&quot;</span><span class="p">)</span>
+heatmap<span class="p">(</span>coef1<span class="p">,</span> Rowv<span class="o">=</span><span class="kc">NA</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
+
+<span class="kn">library</span><span class="p">(</span><span class="s">&quot;gplots&quot;</span><span class="p">)</span>
+
+<span class="kn">library</span><span class="p">(</span><span class="s">&quot;RColorBrewer&quot;</span><span class="p">)</span>
+colors <span class="o">&lt;-</span> colorRampPalette<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;beige&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">))</span>
+pdf<span class="p">(</span><span class="s">&quot;heatmap.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">8</span><span class="p">,</span> height<span class="o">=</span><span class="m">8</span><span class="p">)</span>
+heatmap.2<span class="p">(</span>coef<span class="p">,</span> dendrogram<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> col<span class="o">=</span>colors<span class="p">,</span> trace<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> 
+	scale<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> margins<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> Rowv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+dev.off<span class="p">()</span></code></pre></div>
 
 <div class="footnotes">
   <ol>

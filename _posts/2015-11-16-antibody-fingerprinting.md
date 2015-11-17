@@ -7,7 +7,7 @@ categories: antibody-footprinting DENV
 use_math: true
 ---
 
-In this [Science paper][science-paper] by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of _antibody fingerprints_ that are then used to characterize multiclonal sera. The notation is as follows. 
+In this [Science paper][science-paper] by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of _antibody fingerprints_ that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in `R` is given below. 
 
 ## Antibody Clustering
 Stendarting with the antibody clustering analysis (on page 4 of the supplemental), let:
@@ -16,7 +16,7 @@ Stendarting with the antibody clustering analysis (on page 4 of the supplemental
 N\_j = \\{n\_{1j}, n\_{2j}, \cdots, n\_{ij}, \cdots, n\_{vj}\\} ,
 \end{equation}
 
-where $N_j$ is the neutralization fingerprint for antibody $j$, and where $n\_{ij}$ is the neutralization potency, for which antibody $j$ neutralizes virus strain $i$, and $v$ represents the total number of virus strains. Then, they transform $N_j$ into a rank vector $N\_j^R$, where the rank for strain $i$ is replaced by the rank, obtained by sorting the $n_{ij}$ values by potency (highest potency $=1$). For any two given antibodies $j_1$ and $j_2$, the Spearman rank correlation is calculated for the two rank vectors $N\_{j\_1}^R$ and $N\_{j\_2}^R$. To copy their example in `R`:
+where $N_j$ is the neutralization fingerprint for antibody $j$, and where $n\_{ij}$ is the neutralization potency, for which antibody $j$ neutralizes virus strain $i$, and $v$ represents the total number of virus strains. Then, they transform $N_j$ into a rank vector $N\_j^R$, where the potency for strain $i$ is replaced by the rank, obtained by sorting the $n_{ij}$ values by potency (highest potency $=1$). For any two given antibodies $j_1$ and $j_2$, the Spearman correlation is calculated for the two rank vectors $N\_{j\_1}^R$ and $N\_{j\_2}^R$. To copy their example in `R`:
 
 {% highlight R %}
 na1 <- c(0.5, 0.3, 20.7, 11.3, 13.4)
@@ -128,6 +128,80 @@ or
    THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
        2.5        9.0       16.0       14.0       11.0       10.0       12.0
 {% endhighlight %}
+
+Here is the final script:
+
+{% highlight R %}
+
+rm(list=ls())
+abFile 			<- read.csv("neut-rank.csv", check.names=FALSE)
+seraFile		<- read.csv("sera_neut.csv", check.names=FALSE)
+abFileSize 		<- dim(abFile)
+seraFileSize 	<- dim(seraFile)
+numAbStrains 	<- abFileSize[1]
+numSeraStrains  <- seraFileSize[1]
+numAbs 			<- abFileSize[2]-1
+numSera 		<- seraFileSize[2]-1
+abNames			<- colnames(abFile)
+seraNames		<- colnames(seraFile)
+
+## Sort by Strain Name
+abFileSorted 	<- abFile[with(abFile, order(strain)), ]
+seraFileSorted 	<- seraFile[with(seraFile, order(strain)), ]
+
+## Ranks
+abMatrixRanks 	<- abFileSorted[,-1]
+seraFileRanks	<- apply(X=seraFileSorted[,-1], MARGIN=2, FUN=function(x){rank(-x)})
+
+## Names
+abStrainNames 	<- abFileSorted[,1]
+rownames(abMatrixRanks) <- abStrainNames
+seraStrainNames	<- seraFileSorted[,1]
+rownames(seraFileRanks) <- seraStrainNames
+
+if(!(toString(abStrainNames)==toString(seraStrainNames))){
+	stop("Names do not match in your antibody and strain files.")
+	}else{
+		print("Good, your antibody and strain file row names match!")
+	}
+
+## Perform Minimization (using non-negative least squares)
+library("nnls")
+
+find.coefficients <- function(abMatrixRanks, seraFileRanks){
+	A <- as.matrix(abMatrixRanks)
+	c.matrix <- matrix(data=NA, nrow=ncol(seraFileRanks), ncol=ncol(abMatrixRanks))
+	for(i in 1:ncol(seraFileRanks)){
+		b 				<- as.vector(seraFileRanks[,i])
+		C 				<- nnls(A=A, b=b)
+		C.scaled		<- C$x/sum(C$x)
+		c.matrix[i,]	<- C.scaled
+	}
+	rownames(c.matrix) <- colnames(seraFileRanks)
+	colnames(c.matrix) <- colnames(abMatrixRanks)
+	return(c.matrix)
+}
+
+coef <- find.coefficients(abMatrixRanks=abMatrixRanks, seraFileRanks=seraFileRanks)
+coef1 <- apply(X=coef, MARGIN=2, FUN=rev)
+write.csv(coef, "coefficients.csv")
+heatmap(coef1, Rowv=NA, Colv=NA)
+
+library("gplots")
+
+library("RColorBrewer")
+colors <- colorRampPalette(c("beige", "blue"))
+pdf("heatmap.pdf", width=8, height=8)
+heatmap.2(coef, dendrogram="none", col=colors, trace="none", 
+	scale="none", margins=c(8,5), Rowv=FALSE, Colv=FALSE)
+dev.off()
+{% endhighlight %}
+
+## Result from original Mathematica script
+![](/blog/images/mabs-sera_find-fit_heatmap.tiff)
+
+## Result from my R script
+![](/blog/images/heatmap.pdf)
 
 
 [^1]:(Alternative options may exist with the `optim` or `constrOptim` functions in the `R` package `stats`.)
