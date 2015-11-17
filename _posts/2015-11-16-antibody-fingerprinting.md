@@ -169,7 +169,8 @@ library("nnls")
 
 find.coefficients <- function(abMatrixRanks, seraFileRanks){
 	A <- as.matrix(abMatrixRanks)
-	c.matrix <- matrix(data=NA, nrow=ncol(seraFileRanks), ncol=ncol(abMatrixRanks))
+	c.matrix <- matrix(data=NA, nrow=ncol(seraFileRanks),
+					ncol=ncol(abMatrixRanks))
 	for(i in 1:ncol(seraFileRanks)){
 		b 				<- as.vector(seraFileRanks[,i])
 		C 				<- nnls(A=A, b=b)

@@ -5,8 +5,8 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Nov 2015 13:16:23 -0500</pubDate>
-    <lastBuildDate>Tue, 17 Nov 2015 13:16:23 -0500</lastBuildDate>
+    <pubDate>Tue, 17 Nov 2015 13:25:46 -0500</pubDate>
+    <lastBuildDate>Tue, 17 Nov 2015 13:25:46 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -163,7 +163,8 @@ seraStrainNames	&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; seraFileS
 
 find.coefficients &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;abMatrixRanks&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; seraFileRanks&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
 	A &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;abMatrixRanks&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	c.matrix &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; nrow&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seraFileRanks&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; ncol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;abMatrixRanks&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+	c.matrix &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; nrow&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seraFileRanks&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+					ncol&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;abMatrixRanks&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 	&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seraFileRanks&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;
 		b 				&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seraFileRanks&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;i&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 		C 				&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; nnls&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;A&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;A&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
