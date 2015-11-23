@@ -5,8 +5,8 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Nov 2015 15:33:50 -0500</pubDate>
-    <lastBuildDate>Tue, 17 Nov 2015 15:33:50 -0500</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2015 12:38:45 -0500</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2015 12:38:45 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -203,7 +203,9 @@ dev.off&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&
 
 &lt;h2 id=&quot;result-from-original-mathematica-vs-br-result-from-my-r-script&quot;&gt;Result from original Mathematica vs. &lt;br /&gt; Result from my R script&lt;/h2&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;http://mauriziopaul.github.io/blog/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/blog/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://mauriziopaul.github.io/blog/images/afp-heatmap1.pdf?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 

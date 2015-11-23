@@ -211,7 +211,9 @@ dev.off()
 ## Result from original Mathematica vs. <br/> Result from my R script
 
 {: .center}
-![]({{ site.url }}/blog/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true)
+![]({{ site.baseurl }}/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true)
+
+![]({{ "/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true" | prepend: site.baseurl }})
 
 ![]({{ site.url }}/blog/images/afp-heatmap1.pdf?raw=true)
 
