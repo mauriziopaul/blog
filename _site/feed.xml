@@ -5,9 +5,25 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 23 Nov 2015 12:38:45 -0500</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2015 12:38:45 -0500</lastBuildDate>
+    <pubDate>Thu, 10 Dec 2015 12:14:08 -0500</pubDate>
+    <lastBuildDate>Thu, 10 Dec 2015 12:14:08 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Dengvaxia</title>
+        <description>&lt;p&gt;As reported in the &lt;a href=&quot;http://www.nytimes.com/2015/12/10/business/first-dengue-fever-vaccine-approved-by-mexico.html&quot;&gt;New York Times&lt;/a&gt;, yesterday marked the first marketing approval of a &lt;a href=&quot;http://www.nature.com/scitable/topicpage/dengue-viruses-22400925&quot;&gt;dengue virus&lt;/a&gt; vaccine, one called “Dengvaxia”, previously referred to as &lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/S0264410X15014103&quot;&gt;CYD-TDV&lt;/a&gt;, produced by &lt;a href=&quot;http://www.sanofipasteur.com/en/articles/dengvaxia-world-s-first-dengue-vaccine-approved-in-mexico.aspx&quot;&gt;Sanofi Pasteur&lt;/a&gt;, and approved for use in Mexico in 9- to 45-year olds. Dengue virus is an emerging (perhaps “formerly” neglected) arbiviral pathogen, comprised of four serotypes and &lt;a href=&quot;http://www.cdc.gov/dengue/epidemiology/&quot;&gt;transmitted&lt;/a&gt; by the mosquito species &lt;em&gt;Aedes aegypti&lt;/em&gt; and &lt;em&gt;Aedes albopictus&lt;/em&gt;. It may result in clinical illness including dengue fever (DF), dengue hemorrhagic fever (DHF), or dengue shock syndrome (DSS), with an estimated 22,000 deaths annually. &lt;a href=&quot;http://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001450&quot;&gt;Mathematical&lt;/a&gt; &lt;a href=&quot;http://www.sabin.org/updates/blog/modeling-impact-future-dengue-vaccine&quot;&gt;modeling&lt;/a&gt; has played a role in making policy recommendations regarding vaccination. The protection offered by this vaccine has been under &lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/S0140673615608893&quot;&gt;debate&lt;/a&gt; by the research and public health community, due to the variability in outcomes and effect of pre-vaccination immune status, following the publication of &lt;a href=&quot;http://www.sciencedirect.com/science/article/pii/S0140673614610606&quot;&gt;clinical trial results&lt;/a&gt;, so it will be of interest to keep following how this plays out in Mexico.&lt;/p&gt;
+
+&lt;p&gt;Learn more about dengue vaccines at &lt;a href=&quot;http://www.denguevaccines.org&quot;&gt;DengueVaccines.org&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 10 Dec 2015 12:08:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/jekyll/2015/12/10/dengvaxia.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/12/10/dengvaxia.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
     
       <item>
         <title>Antibody Fingerprinting</title>
