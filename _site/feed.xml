@@ -5,9 +5,23 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 10 Dec 2015 12:14:08 -0500</pubDate>
-    <lastBuildDate>Thu, 10 Dec 2015 12:14:08 -0500</lastBuildDate>
+    <pubDate>Wed, 16 Dec 2015 17:15:43 -0500</pubDate>
+    <lastBuildDate>Wed, 16 Dec 2015 17:15:43 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Embarking On My First R Package</title>
+        <description>&lt;p&gt;Using a simple checklist of &lt;a href=&quot;https://github.com/rdpeng/daprocedures&quot;&gt;data analysis procedures&lt;/a&gt; for building R packages, via to the GitHub &lt;a href=&quot;https://github.com/rdpeng&quot;&gt;site&lt;/a&gt; of Roger Peng, biostatistics faculty at &lt;a href=&quot;http://www.biostat.jhsph.edu/~rpeng/&quot;&gt;Johns Hopkins&lt;/a&gt;, I have been able to put together the framework for a minimal R package, which still needs to be developed a bit. The package contains functions, loaded from a source file, which are useful for analyzing data sets for two projects on the genetics of infectious disease which I have been working on. This will both help to standardize and streamline my work on both of the projects, but also enable me to share my code in a more easily accessible format with others when the papers are being published.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 16 Dec 2015 00:00:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/coding-in-r/2015/12/16/first-r-package.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2015/12/16/first-r-package.html</guid>
+        
+        
+        <category>coding-in-r</category>
+        
+      </item>
     
       <item>
         <title>Dengvaxia</title>
@@ -22,6 +36,67 @@
         
         
         <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>git learning</title>
+        <description>&lt;p&gt;Here are some notes (mostly for myself) about common workflows when using &lt;a href=&quot;https://git-scm.com&quot;&gt;git&lt;/a&gt;, from what I have learned on &lt;a href=&quot;https://www.codecademy.com/learn/learn-git&quot;&gt;Codecademy&lt;/a&gt; lesson on git. I am now frequently using &lt;a href=&quot;https://training.github.com/classes/introduction/&quot;&gt;GitHub&lt;/a&gt; to work on my projects. I am just getting into branching, and hopefully referring to this will help with simplifying the process of testing and developing code/scripts, and help when collaborating with others.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	## standard workflow
+	git add filename
+	git commit -m &quot;message&quot;
+	git show HEAD # this shows the most recent commit
+	git checkout HEAD filename # This restores the file to last commit
+	git reset HEAD filename # This unstages a commit
+	git reset ####### use the first 7 characters of the commit SHA in the Git log
+
+	## branches
+	git branch # check the branch you are on
+	git branch new_branch # add a branch
+	git checkout new_branch # switch to new branch
+	git branch # check branch again
+	
+	## edits with branches
+	git checkout master # switch to master branch
+	git merge new_branch # this will `fast-forward&#39; the master to the new branch
+	# if conflicts arise: edit the file and remove git markings
+	git branch -d branch_to_be_deleted
+
+	git clone remote_location local_name
+	git remote -v # list the remotes, one for fetch, one for push
+	git fetch remote_location # this DOES NOT MERGE -- it makes a remote branch
+	git merge origin/master # merge/fast-forward the origin/master remote branch to local
+	
+	#1. git clone remote_location local_name
+	#2. git branch local_branch_name
+	#3. git add file; git commit -m &quot;message&quot; # develop feature, commit
+	#4. git fetch remote_location; git merge origin/master
+	#5. git push origin local_branch_name
+	
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In words, the workflow with branches is the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;fetch and merge from remote&lt;/li&gt;
+  &lt;li&gt;create a branch&lt;/li&gt;
+  &lt;li&gt;develop feature, commit&lt;/li&gt;
+  &lt;li&gt;fetch and merge from remote&lt;/li&gt;
+  &lt;li&gt;push branch up to remote for review&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Steps 1 and 4 protect against merge conflicts. If you keep up to date and no one else is editing your code, you may skip these steps.&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 10 Dec 2015 00:00:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/git/workflow/2015/12/10/git-learning.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/git/workflow/2015/12/10/git-learning.html</guid>
+        
+        
+        <category>git</category>
+        
+        <category>workflow</category>
         
       </item>
     
