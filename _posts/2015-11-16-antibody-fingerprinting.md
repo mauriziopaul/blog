@@ -7,7 +7,7 @@ categories: antibody-footprinting DENV
 use_math: true
 ---
 
-In this [Science paper][science-paper] by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of _antibody fingerprints_ that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in `R` is given below. 
+In this [Science paper][science-paper] by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of _antibody fingerprints_ that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in `R` is given below. (Images in this post are best visualized using the Safari browser. Apologies to users on other browsers as I attempt to fix this.)
 
 ## Antibody Clustering
 Stendarting with the antibody clustering analysis (on page 4 of the supplemental), let:

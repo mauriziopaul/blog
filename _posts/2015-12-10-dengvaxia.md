@@ -2,7 +2,7 @@
 layout: post
 title:  "Dengvaxia"
 date:   2015-12-10 12:08:00 -0500
-categories: jekyll 
+categories: virology 
 ---
 
 As reported in the [New York Times][nyt-dengvaxia], yesterday marked the first marketing approval of a [dengue virus][dengue-virus] vaccine, one called "Dengvaxia", previously referred to as [CYD-TDV][cyd-tdv], produced by [Sanofi Pasteur][dengvaxia], and approved for use in Mexico in 9- to 45-year olds. Dengue virus is an emerging (perhaps "formerly" neglected) arbiviral pathogen, comprised of four serotypes and [transmitted][cdc-dengue] by the mosquito species *Aedes aegypti* and *Aedes albopictus*. It may result in clinical illness including dengue fever (DF), dengue hemorrhagic fever (DHF), or dengue shock syndrome (DSS), with an estimated 22,000 deaths annually. [Mathematical][plos-math-models] [modeling][blog-math-models] has played a role in making policy recommendations regarding vaccination. The protection offered by this vaccine has been under [debate][lancet-debate] by the research and public health community, due to the variability in outcomes and effect of pre-vaccination immune status, following the publication of [clinical trial results][lancet-clinical-trials], so it will be of interest to keep following how this plays out in Mexico.
