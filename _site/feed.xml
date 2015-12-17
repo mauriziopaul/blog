@@ -5,18 +5,18 @@
     <description>Statistical modeling, and genetics of host-pathogen interactions</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 16 Dec 2015 17:15:43 -0500</pubDate>
-    <lastBuildDate>Wed, 16 Dec 2015 17:15:43 -0500</lastBuildDate>
+    <pubDate>Thu, 17 Dec 2015 04:39:03 -0500</pubDate>
+    <lastBuildDate>Thu, 17 Dec 2015 04:39:03 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Embarking On My First R Package</title>
-        <description>&lt;p&gt;Using a simple checklist of &lt;a href=&quot;https://github.com/rdpeng/daprocedures&quot;&gt;data analysis procedures&lt;/a&gt; for building R packages, via to the GitHub &lt;a href=&quot;https://github.com/rdpeng&quot;&gt;site&lt;/a&gt; of Roger Peng, biostatistics faculty at &lt;a href=&quot;http://www.biostat.jhsph.edu/~rpeng/&quot;&gt;Johns Hopkins&lt;/a&gt;, I have been able to put together the framework for a minimal R package, which still needs to be developed a bit. The package contains functions, loaded from a source file, which are useful for analyzing data sets for two projects on the genetics of infectious disease which I have been working on. This will both help to standardize and streamline my work on both of the projects, but also enable me to share my code in a more easily accessible format with others when the papers are being published.&lt;/p&gt;
+        <description>&lt;p&gt;Using a simple checklist of &lt;a href=&quot;https://github.com/rdpeng/daprocedures&quot;&gt;data analysis procedures&lt;/a&gt; for building R packages, via to the GitHub &lt;a href=&quot;https://github.com/rdpeng&quot;&gt;site&lt;/a&gt; of Roger Peng, biostatistics faculty at &lt;a href=&quot;http://www.biostat.jhsph.edu/~rpeng/&quot;&gt;Johns Hopkins&lt;/a&gt;, I have been able to put together a minimal package framework. The package contains functions, loaded from a source file, which are useful for analyzing data sets for two projects on the genetics of infectious disease which I have been working on. Having this package will help me standardize and streamline my own work on both of the projects, while also preparing my functions and code to be shared with others in a more easily accessible format, either on GitHub or via &lt;a href=&quot;https://cran.r-project.org&quot;&gt;CRAN&lt;/a&gt;, the Comprehensive R Archive Network.&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 16 Dec 2015 00:00:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/coding-in-r/2015/12/16/first-r-package.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2015/12/16/first-r-package.html</guid>
+        <pubDate>Thu, 17 Dec 2015 00:00:00 -0500</pubDate>
+        <link>http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package.html</guid>
         
         
         <category>coding-in-r</category>
@@ -31,11 +31,11 @@
 
 </description>
         <pubDate>Thu, 10 Dec 2015 12:08:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/jekyll/2015/12/10/dengvaxia.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/12/10/dengvaxia.html</guid>
+        <link>http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia.html</guid>
         
         
-        <category>jekyll</category>
+        <category>virology</category>
         
       </item>
     
@@ -90,19 +90,17 @@
 
 </description>
         <pubDate>Thu, 10 Dec 2015 00:00:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/git/workflow/2015/12/10/git-learning.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/git/workflow/2015/12/10/git-learning.html</guid>
+        <link>http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning.html</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning.html</guid>
         
         
-        <category>git</category>
-        
-        <category>workflow</category>
+        <category>git-workflow</category>
         
       </item>
     
       <item>
         <title>Antibody Fingerprinting</title>
-        <description>&lt;p&gt;In this &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/23661761&quot;&gt;Science paper&lt;/a&gt; by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of &lt;em&gt;antibody fingerprints&lt;/em&gt; that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in &lt;code&gt;R&lt;/code&gt; is given below. &lt;/p&gt;
+        <description>&lt;p&gt;In this &lt;a href=&quot;http://www.ncbi.nlm.nih.gov/pubmed/23661761&quot;&gt;Science paper&lt;/a&gt; by Georgiev et al. (2013), the authors use a panel of antibody clusters against a panel of virus strains to generate a reference panel of &lt;em&gt;antibody fingerprints&lt;/em&gt; that are then used to characterize multiclonal sera. The notation and some clues about recoding their work in &lt;code&gt;R&lt;/code&gt; is given below. (Images in this post are best visualized using the Safari browser. Apologies to users on other browsers as I attempt to fix this.)&lt;/p&gt;
 
 &lt;h2 id=&quot;antibody-clustering&quot;&gt;Antibody Clustering&lt;/h2&gt;
 &lt;p&gt;Stendarting with the antibody clustering analysis (on page 4 of the supplemental), let:&lt;/p&gt;

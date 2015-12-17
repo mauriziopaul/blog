@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Embarking On My First R Package"
+date: 2015-12-17
 categories: coding-in-r 
 ---
 
