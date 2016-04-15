@@ -18,6 +18,7 @@ hello <- function(name) {
 
 hello("World")
 # prints "Hello, World!" to console.
+
 {% endhighlight %}
 
 Some resources for Jekyll: Try looking at the [Jekyll docs][jekyll-docs], take a look at bugs and feature requests at [Jekyll’s GitHub repo][jekyll-gh], and get answers to questions on [Jekyll Talk][jekyll-talk].

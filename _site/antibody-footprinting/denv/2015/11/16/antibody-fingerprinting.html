@@ -93,18 +93,18 @@ N_j = \{n_{1j}, n_{2j}, \cdots, n_{ij}, \cdots, n_{vj}\} ,<br />
 
 <p>where $N_j$ is the neutralization fingerprint for antibody $j$, and where $n_{ij}$ is the neutralization potency, for which antibody $j$ neutralizes virus strain $i$, and $v$ represents the total number of virus strains. Then, they transform $N_j$ into a rank vector $N_j^R$, where the potency for strain $i$ is replaced by the rank, obtained by sorting the $n_{ij}$ values by potency (highest potency $=1$). For any two given antibodies $j_1$ and $j_2$, the Spearman correlation is calculated for the two rank vectors $N_{j_1}^R$ and $N_{j_2}^R$. To copy their example in <code>R</code>:</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">na1 <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">20.7</span><span class="p">,</span> <span class="m">11.3</span><span class="p">,</span> <span class="m">13.4</span><span class="p">)</span>
-na2 <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">11.4</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.7</span><span class="p">,</span> <span class="m">3.1</span><span class="p">)</span>
-nar1 <span class="o">&lt;-</span> <span class="kp">rank</span><span class="p">(</span>na1<span class="p">)</span>
-nar2 <span class="o">&lt;-</span> <span class="kp">rank</span><span class="p">(</span>na2<span class="p">)</span>
-cor<span class="p">(</span>nar1<span class="p">,</span> nar2<span class="p">,</span> method<span class="o">=</span><span class="s">&quot;spearman&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">na1</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.3</span><span class="p">,</span> <span class="m">20.7</span><span class="p">,</span> <span class="m">11.3</span><span class="p">,</span> <span class="m">13.4</span><span class="p">)</span>
+<span class="n">na2</span> <span class="o">&lt;-</span> <span class="n">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">11.4</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.7</span><span class="p">,</span> <span class="m">3.1</span><span class="p">)</span>
+<span class="n">nar1</span> <span class="o">&lt;-</span> <span class="n">rank</span><span class="p">(</span><span class="n">na1</span><span class="p">)</span>
+<span class="n">nar2</span> <span class="o">&lt;-</span> <span class="n">rank</span><span class="p">(</span><span class="n">na2</span><span class="p">)</span>
+<span class="n">cor</span><span class="p">(</span><span class="n">nar1</span><span class="p">,</span> <span class="n">nar2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"spearman"</span><span class="p">)</span>
 <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">-0.4616903</span></code></pre></div>
 
 <p>They then use hierarchical clustering in Mathematica.  You can cluster using Manhattan distance in <code>R</code> using the following:</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r">d <span class="o">&lt;-</span> dist<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>mtcars<span class="p">),</span> method<span class="o">=</span><span class="s">&quot;manhattan&quot;</span><span class="p">)</span>
-hc <span class="o">&lt;-</span> hclust<span class="p">(</span>d<span class="p">)</span>
-plot<span class="p">(</span>hc<span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">d</span> <span class="o">&lt;-</span> <span class="n">dist</span><span class="p">(</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">mtcars</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s2">"manhattan"</span><span class="p">)</span>
+<span class="n">hc</span> <span class="o">&lt;-</span> <span class="n">hclust</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">hc</span><span class="p">)</span></code></pre></div>
 
 <h2 id="serum-specificity-delineation">Serum Specificity Delineation</h2>
 <p>Let $S$ be the set of all virus strains, and let $K$ be the set of antibody clusters:</p>
@@ -167,17 +167,17 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},<br />
 
 <p>The key words here (to search on Google) are constrained optimization and regression. We can use <code>nnls</code> (non-negative least squares, Lawson-Hanson-flavored). <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> All that is left to do, is to scale the coefficients such that they sum to 1 (divide by the sum of the coefficients).</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span><span class="s">&quot;nnls&quot;</span><span class="p">)</span>
-A 		<span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
-b 		<span class="o">&lt;-</span> <span class="kp">as.vector</span><span class="p">(</span>seraFileRanks<span class="p">[,</span><span class="m">1</span><span class="p">])</span>
-C 		<span class="o">&lt;-</span> nnls<span class="p">(</span>A<span class="o">=</span>A<span class="p">,</span> b<span class="o">=</span>b<span class="p">)</span>
-C<span class="o">$</span>x
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"nnls"</span><span class="p">)</span>
+<span class="n">A</span> 		<span class="o">&lt;-</span> <span class="n">as.matrix</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">)</span>
+<span class="n">b</span> 		<span class="o">&lt;-</span> <span class="n">as.vector</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">[,</span><span class="m">1</span><span class="p">])</span>
+<span class="n">C</span> 		<span class="o">&lt;-</span> <span class="n">nnls</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+<span class="n">C</span><span class="o">$</span><span class="n">x</span>
  <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.30495756</span> <span class="m">0.05718681</span> <span class="m">0.11185758</span>
  <span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.48295297</span> <span class="m">0.00000000</span>
-<span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">)</span>
+<span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="o">$</span><span class="n">x</span><span class="p">)</span>
 <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.9569549</span>
-C.scaled 	<span class="o">&lt;-</span> C<span class="o">$</span>x<span class="o">/</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">))</span>
-C.scaled
+<span class="n">C.scaled</span> 	<span class="o">&lt;-</span> <span class="n">C</span><span class="o">$</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="o">$</span><span class="n">x</span><span class="p">))</span>
+<span class="n">C.scaled</span>
  <span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.31867495</span> <span class="m">0.05975915</span> <span class="m">0.11688908</span>
  <span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="m">0.00000000</span> <span class="m">0.00000000</span> <span class="m">0.50467683</span> <span class="m">0.00000000</span></code></pre></div>
 
@@ -187,90 +187,90 @@ C.scaled
 
 <p>or</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span> seraFileRanks<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
-    <span class="m">6101.1</span>     Bal.01  BG1168.01    CAAN.A2   DU156.12   DU422.01   JRCSF.JB
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span> <span class="n">seraFileRanks</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+    <span class="m">6101.1</span>     <span class="n">Bal.01</span>  <span class="n">BG1168.01</span>    <span class="n">CAAN.A2</span>   <span class="n">DU156.12</span>   <span class="n">DU422.01</span>   <span class="n">JRCSF.JB</span>
       <span class="m">17.0</span>       <span class="m">18.0</span>        <span class="m">2.5</span>        <span class="m">7.0</span>       <span class="m">15.0</span>        <span class="m">2.5</span>       <span class="m">20.0</span>
-   JRFL.JB KER2018.11     PVO.04    Q168.a2     Q23.17    Q769.h5    RW020.2
+   <span class="n">JRFL.JB</span> <span class="n">KER2018.11</span>     <span class="n">PVO.04</span>    <span class="n">Q168.a2</span>     <span class="n">Q23.17</span>    <span class="n">Q769.h5</span>    <span class="n">RW020.2</span>
       <span class="m">21.0</span>        <span class="m">2.5</span>        <span class="m">5.0</span>        <span class="m">8.0</span>       <span class="m">19.0</span>       <span class="m">13.0</span>        <span class="m">6.0</span>
-   THRO.18    TRJO.58     TRO.11     YU2.DG   ZA012.29    ZM106.9   ZM55.28a
+   <span class="n">THRO.18</span>    <span class="n">TRJO.58</span>     <span class="n">TRO.11</span>     <span class="n">YU2.DG</span>   <span class="n">ZA012.29</span>    <span class="n">ZM106.9</span>   <span class="n">ZM55.28a</span>
        <span class="m">2.5</span>        <span class="m">9.0</span>       <span class="m">16.0</span>       <span class="m">14.0</span>       <span class="m">11.0</span>       <span class="m">10.0</span>       <span class="m">12.0</span></code></pre></div>
 
 <p>Here is the final script <code>ab-fp-script.R</code>:</p>
 
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">rm</span><span class="p">(</span><span class="kt">list</span><span class="o">=</span><span class="kp">ls</span><span class="p">())</span>
-abFile 			<span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;neut-rank.csv&quot;</span><span class="p">,</span> check.names<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-seraFile		<span class="o">&lt;-</span> read.csv<span class="p">(</span><span class="s">&quot;sera_neut.csv&quot;</span><span class="p">,</span> check.names<span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-abFileSize 		<span class="o">&lt;-</span> <span class="kp">dim</span><span class="p">(</span>abFile<span class="p">)</span>
-seraFileSize 	<span class="o">&lt;-</span> <span class="kp">dim</span><span class="p">(</span>seraFile<span class="p">)</span>
-numAbStrains 	<span class="o">&lt;-</span> abFileSize<span class="p">[</span><span class="m">1</span><span class="p">]</span>
-numSeraStrains  <span class="o">&lt;-</span> seraFileSize<span class="p">[</span><span class="m">1</span><span class="p">]</span>
-numAbs 			<span class="o">&lt;-</span> abFileSize<span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
-numSera 		<span class="o">&lt;-</span> seraFileSize<span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
-abNames			<span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>abFile<span class="p">)</span>
-seraNames		<span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>seraFile<span class="p">)</span>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="n">ls</span><span class="p">())</span>
+<span class="n">abFile</span> 			<span class="o">&lt;-</span> <span class="n">read.csv</span><span class="p">(</span><span class="s2">"neut-rank.csv"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<span class="n">seraFile</span>		<span class="o">&lt;-</span> <span class="n">read.csv</span><span class="p">(</span><span class="s2">"sera_neut.csv"</span><span class="p">,</span> <span class="n">check.names</span><span class="o">=</span><span class="n">FALSE</span><span class="p">)</span>
+<span class="n">abFileSize</span> 		<span class="o">&lt;-</span> <span class="n">dim</span><span class="p">(</span><span class="n">abFile</span><span class="p">)</span>
+<span class="n">seraFileSize</span> 	<span class="o">&lt;-</span> <span class="n">dim</span><span class="p">(</span><span class="n">seraFile</span><span class="p">)</span>
+<span class="n">numAbStrains</span> 	<span class="o">&lt;-</span> <span class="n">abFileSize</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="n">numSeraStrains</span>  <span class="o">&lt;-</span> <span class="n">seraFileSize</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="n">numAbs</span> 			<span class="o">&lt;-</span> <span class="n">abFileSize</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
+<span class="n">numSera</span> 		<span class="o">&lt;-</span> <span class="n">seraFileSize</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span>
+<span class="n">abNames</span>			<span class="o">&lt;-</span> <span class="n">colnames</span><span class="p">(</span><span class="n">abFile</span><span class="p">)</span>
+<span class="n">seraNames</span>		<span class="o">&lt;-</span> <span class="n">colnames</span><span class="p">(</span><span class="n">seraFile</span><span class="p">)</span>
 
-<span class="c1">## Sort by Strain Name</span>
-abFileSorted 	<span class="o">&lt;-</span> abFile<span class="p">[</span><span class="kp">with</span><span class="p">(</span>abFile<span class="p">,</span> <span class="kp">order</span><span class="p">(</span>strain<span class="p">)),</span> <span class="p">]</span>
-seraFileSorted 	<span class="o">&lt;-</span> seraFile<span class="p">[</span><span class="kp">with</span><span class="p">(</span>seraFile<span class="p">,</span> <span class="kp">order</span><span class="p">(</span>strain<span class="p">)),</span> <span class="p">]</span>
+<span class="c1">## Sort by Strain Name
+</span><span class="n">abFileSorted</span> 	<span class="o">&lt;-</span> <span class="n">abFile</span><span class="p">[</span><span class="n">with</span><span class="p">(</span><span class="n">abFile</span><span class="p">,</span> <span class="n">order</span><span class="p">(</span><span class="n">strain</span><span class="p">)),</span> <span class="p">]</span>
+<span class="n">seraFileSorted</span> 	<span class="o">&lt;-</span> <span class="n">seraFile</span><span class="p">[</span><span class="n">with</span><span class="p">(</span><span class="n">seraFile</span><span class="p">,</span> <span class="n">order</span><span class="p">(</span><span class="n">strain</span><span class="p">)),</span> <span class="p">]</span>
 
-<span class="c1">## Ranks</span>
-abMatrixRanks 	<span class="o">&lt;-</span> abFileSorted<span class="p">[,</span><span class="m">-1</span><span class="p">]</span>
-seraFileRanks	<span class="o">&lt;-</span> <span class="kp">apply</span><span class="p">(</span>X<span class="o">=</span>seraFileSorted<span class="p">[,</span><span class="m">-1</span><span class="p">],</span> MARGIN<span class="o">=</span><span class="m">2</span><span class="p">,</span> FUN<span class="o">=</span><span class="kr">function</span><span class="p">(</span>x<span class="p">){</span><span class="kp">rank</span><span class="p">(</span><span class="o">-</span>x<span class="p">)})</span>
+<span class="c1">## Ranks
+</span><span class="n">abMatrixRanks</span> 	<span class="o">&lt;-</span> <span class="n">abFileSorted</span><span class="p">[,</span><span class="m">-1</span><span class="p">]</span>
+<span class="n">seraFileRanks</span>	<span class="o">&lt;-</span> <span class="n">apply</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">seraFileSorted</span><span class="p">[,</span><span class="m">-1</span><span class="p">],</span> <span class="n">MARGIN</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">FUN</span><span class="o">=</span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="n">rank</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)})</span>
 
-<span class="c1">## Names</span>
-abStrainNames 	<span class="o">&lt;-</span> abFileSorted<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
-<span class="kp">rownames</span><span class="p">(</span>abMatrixRanks<span class="p">)</span> <span class="o">&lt;-</span> abStrainNames
-seraStrainNames	<span class="o">&lt;-</span> seraFileSorted<span class="p">[,</span><span class="m">1</span><span class="p">]</span>
-<span class="kp">rownames</span><span class="p">(</span>seraFileRanks<span class="p">)</span> <span class="o">&lt;-</span> seraStrainNames
+<span class="c1">## Names
+</span><span class="n">abStrainNames</span> 	<span class="o">&lt;-</span> <span class="n">abFileSorted</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="n">rownames</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">abStrainNames</span>
+<span class="n">seraStrainNames</span>	<span class="o">&lt;-</span> <span class="n">seraFileSorted</span><span class="p">[,</span><span class="m">1</span><span class="p">]</span>
+<span class="n">rownames</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">seraStrainNames</span>
 
-<span class="kr">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="kp">toString</span><span class="p">(</span>abStrainNames<span class="p">)</span><span class="o">==</span><span class="kp">toString</span><span class="p">(</span>seraStrainNames<span class="p">))){</span>
-	<span class="kp">stop</span><span class="p">(</span><span class="s">&quot;Names do not match in your antibody and strain files.&quot;</span><span class="p">)</span>
-	<span class="p">}</span><span class="kp">else</span><span class="p">{</span>
-		<span class="kp">print</span><span class="p">(</span><span class="s">&quot;Good, your antibody and strain file row names match!&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">toString</span><span class="p">(</span><span class="n">abStrainNames</span><span class="p">)</span><span class="o">==</span><span class="n">toString</span><span class="p">(</span><span class="n">seraStrainNames</span><span class="p">))){</span>
+	<span class="n">stop</span><span class="p">(</span><span class="s2">"Names do not match in your antibody and strain files."</span><span class="p">)</span>
+	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+		<span class="n">print</span><span class="p">(</span><span class="s2">"Good, your antibody and strain file row names match!"</span><span class="p">)</span>
 	<span class="p">}</span>
 
-<span class="c1">## Perform Minimization (using non-negative least squares)</span>
-<span class="kn">library</span><span class="p">(</span><span class="s">&quot;nnls&quot;</span><span class="p">)</span>
+<span class="c1">## Perform Minimization (using non-negative least squares)
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"nnls"</span><span class="p">)</span>
 
-find.coefficients <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>abMatrixRanks<span class="p">,</span> seraFileRanks<span class="p">){</span>
-	A <span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
-	c.matrix <span class="o">&lt;-</span> <span class="kt">matrix</span><span class="p">(</span>data<span class="o">=</span><span class="kc">NA</span><span class="p">,</span> nrow<span class="o">=</span><span class="kp">ncol</span><span class="p">(</span>seraFileRanks<span class="p">),</span>
-					ncol<span class="o">=</span><span class="kp">ncol</span><span class="p">(</span>abMatrixRanks<span class="p">))</span>
-	<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">ncol</span><span class="p">(</span>seraFileRanks<span class="p">)){</span>
-		b 				<span class="o">&lt;-</span> <span class="kp">as.vector</span><span class="p">(</span>seraFileRanks<span class="p">[,</span>i<span class="p">])</span>
-		C 				<span class="o">&lt;-</span> nnls<span class="p">(</span>A<span class="o">=</span>A<span class="p">,</span> b<span class="o">=</span>b<span class="p">)</span>
-		C.scaled		<span class="o">&lt;-</span> C<span class="o">$</span>x<span class="o">/</span><span class="kp">sum</span><span class="p">(</span>C<span class="o">$</span>x<span class="p">)</span>
-		c.matrix<span class="p">[</span>i<span class="p">,]</span>	<span class="o">&lt;-</span> C.scaled
+<span class="n">find.coefficients</span> <span class="o">&lt;-</span> <span class="k">function</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">,</span> <span class="n">seraFileRanks</span><span class="p">){</span>
+	<span class="n">A</span> <span class="o">&lt;-</span> <span class="n">as.matrix</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">)</span>
+	<span class="n">c.matrix</span> <span class="o">&lt;-</span> <span class="n">matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">NA</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="n">ncol</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">),</span>
+					<span class="n">ncol</span><span class="o">=</span><span class="n">ncol</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">))</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="k">in</span> <span class="m">1</span><span class="o">:</span><span class="n">ncol</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">)){</span>
+		<span class="n">b</span> 				<span class="o">&lt;-</span> <span class="n">as.vector</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">[,</span><span class="n">i</span><span class="p">])</span>
+		<span class="n">C</span> 				<span class="o">&lt;-</span> <span class="n">nnls</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+		<span class="n">C.scaled</span>		<span class="o">&lt;-</span> <span class="n">C</span><span class="o">$</span><span class="n">x</span><span class="o">/</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="o">$</span><span class="n">x</span><span class="p">)</span>
+		<span class="n">c.matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span>	<span class="o">&lt;-</span> <span class="n">C.scaled</span>
 	<span class="p">}</span>
-	<span class="kp">rownames</span><span class="p">(</span>c.matrix<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>seraFileRanks<span class="p">)</span>
-	<span class="kp">colnames</span><span class="p">(</span>c.matrix<span class="p">)</span> <span class="o">&lt;-</span> <span class="kp">colnames</span><span class="p">(</span>abMatrixRanks<span class="p">)</span>
-	<span class="kr">return</span><span class="p">(</span>c.matrix<span class="p">)</span>
+	<span class="n">rownames</span><span class="p">(</span><span class="n">c.matrix</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">colnames</span><span class="p">(</span><span class="n">seraFileRanks</span><span class="p">)</span>
+	<span class="n">colnames</span><span class="p">(</span><span class="n">c.matrix</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">colnames</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="p">)</span>
+	<span class="k">return</span><span class="p">(</span><span class="n">c.matrix</span><span class="p">)</span>
 <span class="p">}</span>
 
-coef <span class="o">&lt;-</span> find.coefficients<span class="p">(</span>abMatrixRanks<span class="o">=</span>abMatrixRanks<span class="p">,</span> seraFileRanks<span class="o">=</span>seraFileRanks<span class="p">)</span>
-write.csv<span class="p">(</span>coef<span class="p">,</span> <span class="s">&quot;coefficients.csv&quot;</span><span class="p">)</span>
-<span class="c1">#Alternate, simple heatmap code, without legend</span>
-<span class="c1">#coef1 &lt;- apply(X=coef, MARGIN=2, FUN=rev)</span>
-<span class="c1">#heatmap(coef1, Rowv=NA, Colv=NA)</span>
+<span class="n">coef</span> <span class="o">&lt;-</span> <span class="n">find.coefficients</span><span class="p">(</span><span class="n">abMatrixRanks</span><span class="o">=</span><span class="n">abMatrixRanks</span><span class="p">,</span> <span class="n">seraFileRanks</span><span class="o">=</span><span class="n">seraFileRanks</span><span class="p">)</span>
+<span class="n">write.csv</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="s2">"coefficients.csv"</span><span class="p">)</span>
+<span class="c1">#Alternate, simple heatmap code, without legend
+#coef1 &lt;- apply(X=coef, MARGIN=2, FUN=rev)
+#heatmap(coef1, Rowv=NA, Colv=NA)
+</span>
+<span class="c1"># Plot Heatmap, unclustered
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"gplots"</span><span class="p">)</span>
+<span class="n">library</span><span class="p">(</span><span class="s2">"RColorBrewer"</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">&lt;-</span> <span class="n">colorRampPalette</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="s2">"beige"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">))</span>
+<span class="n">lmat</span> <span class="o">=</span> <span class="n">rbind</span><span class="p">(</span><span class="n">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span><span class="n">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="n">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
+<span class="n">lwid</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
+<span class="n">lhei</span> <span class="o">=</span> <span class="n">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+<span class="n">pdf</span><span class="p">(</span><span class="s2">"heatmap1.pdf"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
+<span class="n">heatmap.2</span><span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">dendrogram</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> 
+	<span class="n">scale</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> <span class="n">Rowv</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">Colv</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> 
+	<span class="n">lmat</span><span class="o">=</span><span class="n">lmat</span><span class="p">,</span> <span class="n">lwid</span><span class="o">=</span><span class="n">lwid</span><span class="p">,</span> <span class="n">lhei</span><span class="o">=</span><span class="n">lhei</span><span class="p">,</span> <span class="n">density.info</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
+<span class="n">dev.off</span><span class="p">()</span>
 
-<span class="c1"># Plot Heatmap, unclustered</span>
-<span class="kn">library</span><span class="p">(</span><span class="s">&quot;gplots&quot;</span><span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span><span class="s">&quot;RColorBrewer&quot;</span><span class="p">)</span>
-colors <span class="o">&lt;-</span> colorRampPalette<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;beige&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">))</span>
-lmat <span class="o">=</span> <span class="kp">rbind</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">),</span><span class="kt">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">4</span><span class="p">))</span>
-lwid <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">)</span>
-lhei <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
-pdf<span class="p">(</span><span class="s">&quot;heatmap1.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">8</span><span class="p">,</span> height<span class="o">=</span><span class="m">8</span><span class="p">)</span>
-heatmap.2<span class="p">(</span>coef<span class="p">,</span> dendrogram<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> col<span class="o">=</span>colors<span class="p">,</span> trace<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> 
-	scale<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">,</span> margins<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">8</span><span class="p">,</span><span class="m">5</span><span class="p">),</span> Rowv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> Colv<span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> 
-	lmat<span class="o">=</span>lmat<span class="p">,</span> lwid<span class="o">=</span>lwid<span class="p">,</span> lhei<span class="o">=</span>lhei<span class="p">,</span> density.info<span class="o">=</span><span class="s">&quot;none&quot;</span><span class="p">)</span>
-dev.off<span class="p">()</span>
-
-pdf<span class="p">(</span><span class="s">&quot;stackedbars.pdf&quot;</span><span class="p">,</span> width<span class="o">=</span><span class="m">12</span><span class="p">,</span> height<span class="o">=</span><span class="m">6</span><span class="p">)</span>
-colors <span class="o">&lt;-</span> rainbow<span class="p">(</span><span class="kp">length</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">)))</span>
-barplot<span class="p">(</span><span class="kp">t</span><span class="p">(</span>coef<span class="p">),</span> col<span class="o">=</span>colors<span class="p">,</span> xlim<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="kp">length</span><span class="p">(</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">))</span><span class="o">*</span><span class="m">2</span><span class="p">))</span>
-legend<span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span> legend<span class="o">=</span><span class="kp">colnames</span><span class="p">(</span>coef<span class="p">),</span> fill<span class="o">=</span>colors<span class="p">)</span>
-dev.off<span class="p">()</span></code></pre></div>
+<span class="n">pdf</span><span class="p">(</span><span class="s2">"stackedbars.pdf"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="m">12</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="m">6</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">&lt;-</span> <span class="n">rainbow</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">coef</span><span class="p">)))</span>
+<span class="n">barplot</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">coef</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">length</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">coef</span><span class="p">))</span><span class="o">*</span><span class="m">2</span><span class="p">))</span>
+<span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">colnames</span><span class="p">(</span><span class="n">coef</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+<span class="n">dev.off</span><span class="p">()</span></code></pre></div>
 
 <h2 id="result-from-original-mathematica-vs-br-result-from-my-r-script">Result from original Mathematica vs. <br /> Result from my R script</h2>
 
