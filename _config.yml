@@ -1,9 +1,5 @@
 # Site settings
 highlighter: rouge
-syntax-highlighting:
-  enabled : true
-  css: ./css/main.scss
-#  css: syntax.css
 
 title : Simple Blog (mauriziopaul)
 author :
