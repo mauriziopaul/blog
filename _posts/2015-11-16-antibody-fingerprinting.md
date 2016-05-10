@@ -213,8 +213,6 @@ dev.off()
 {: .center}
 ![]({{ site.baseurl }}/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true)
 
-![]({{ "/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true" | prepend: site.baseurl }})
-
 ![]({{ site.url }}/blog/images/afp-heatmap1.pdf?raw=true)
 
 ## Alternative visualization using stacked bars
