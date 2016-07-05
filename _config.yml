@@ -1,5 +1,8 @@
 # Site settings
+permalink: /:categories/:year/:month/:day/:title
+exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "License.md", "Gemfile", "Gemfile.lock"]
 highlighter: rouge
+future: false
 
 title : Simple Blog (mauriziopaul)
 author :
@@ -8,9 +11,9 @@ author :
   twitter : TweetNTD
   feedburner : nil
 # email : paul.maurizio@gmail.com
-description : Statistical modeling, and genetics of host-pathogen interactions
+description : Statistical Genetics <br>&amp; Viral Pathogenesis
 production_url : https://mauriziopaul.github.io/blog
-baseurl : "/blog" # the subpath of your site, e.g. /blog
+baseurl : "/blog" # the subpath of the site
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site
 twitter_username : TweetNTD
 github_username :  mauriziopaul

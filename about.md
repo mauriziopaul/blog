@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 ### Me
-You can find out more about me at my at my main GitHub.io page, [https://mauriziopaul.github.io](https://mauriziopaul.github.io), or at my GitHub user page: {% include icon-github.html username="mauriziopaul" %}
+You can find out more about me at my main GitHub.io page, [https://mauriziopaul.github.io](https://mauriziopaul.github.io), or at my GitHub user page: {% include icon-github.html username="mauriziopaul" %}
 
 
 ### Jekyll
