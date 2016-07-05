@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Simple Blog (mauriziopaul)</title>
-    <description>Statistical modeling, and genetics of host-pathogen interactions</description>
+    <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 10 May 2016 10:34:09 -0400</pubDate>
-    <lastBuildDate>Tue, 10 May 2016 10:34:09 -0400</lastBuildDate>
+    <pubDate>Tue, 05 Jul 2016 12:37:29 -0400</pubDate>
+    <lastBuildDate>Tue, 05 Jul 2016 12:37:29 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -15,8 +15,8 @@
 
 </description>
         <pubDate>Thu, 17 Dec 2015 00:00:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package.html</guid>
+        <link>http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2015/12/17/first-r-package</guid>
         
         
         <category>coding-in-r</category>
@@ -31,8 +31,8 @@
 
 </description>
         <pubDate>Thu, 10 Dec 2015 12:08:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia.html</guid>
+        <link>http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/virology/2015/12/10/dengvaxia</guid>
         
         
         <category>virology</category>
@@ -90,8 +90,8 @@
 
 </description>
         <pubDate>Thu, 10 Dec 2015 00:00:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning.html</guid>
+        <link>http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/git-workflow/2015/12/10/git-learning</guid>
         
         
         <category>git-workflow</category>
@@ -309,8 +309,8 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},&lt;br /&gt;
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 16 Nov 2015 00:00:00 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/antibody-footprinting/denv/2015/11/16/antibody-fingerprinting.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/antibody-footprinting/denv/2015/11/16/antibody-fingerprinting.html</guid>
+        <link>http://mauriziopaul.github.io/blog/antibody-footprinting/denv/2015/11/16/antibody-fingerprinting</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/antibody-footprinting/denv/2015/11/16/antibody-fingerprinting</guid>
         
         
         <category>antibody-footprinting</category>
@@ -350,8 +350,8 @@ Some resources for Jekyll: Try looking at the [Jekyll docs][jekyll-docs], take a
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 02 Nov 2015 12:58:15 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world.html</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world.html</guid>
+        <link>http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world</guid>
         
         
         <category>jekyll</category>

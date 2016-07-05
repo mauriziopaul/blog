@@ -2,6 +2,7 @@
 layout: post
 title:  "Testing Mathjax"
 categories: latex 
+use_math : true
 ---
 
 ## Simulating data
