@@ -211,13 +211,13 @@ dev.off()
 ## Result from original Mathematica vs. <br/> Result from my R script
 
 {: .center}
-![]({{ site.baseurl }}/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true)
+![](https://mauriziopaul.github.io/blog/images/afp-mabs-sera_find-fit_heatmap.tiff)
 
-![]({{ site.url }}/blog/images/afp-heatmap1.pdf?raw=true)
+![](https://mauriziopaul.github.io/blog/images/afp-heatmap1.pdf)
 
 ## Alternative visualization using stacked bars
 
-![]({{ site.url }}/blog/images/afp-stackedbars.pdf?raw=true)
+![](https://mauriziopaul.github.io/blog/images/afp-stackedbars.pdf)
 
 
 [^1]:(Alternative options may exist with the `optim` or `constrOptim` functions in the `R` package `stats`.)
