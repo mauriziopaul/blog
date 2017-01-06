@@ -4,7 +4,7 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "
 highlighter: rouge
 future: false
 
-title : Simple Blog (mauriziopaul)
+title : Propagating Uncertainty - a blog by mauriziopaul
 author :
   name : Paul L. Maurizio 
   github : mauriziopaul

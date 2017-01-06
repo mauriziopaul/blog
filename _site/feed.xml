@@ -1,13 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Simple Blog (mauriziopaul)</title>
+    <title>Propagating Uncertainty - a blog by mauriziopaul</title>
     <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 05 Jul 2016 12:37:29 -0400</pubDate>
-    <lastBuildDate>Tue, 05 Jul 2016 12:37:29 -0400</lastBuildDate>
+    <pubDate>Fri, 06 Jan 2017 00:35:33 -0500</pubDate>
+    <lastBuildDate>Fri, 06 Jan 2017 00:35:33 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>An Interactive Timeline</title>
+        <description>&lt;h2 id=&quot;timeline-from-knight-lab&quot;&gt;Timeline from Knight Lab&lt;/h2&gt;
+
+&lt;iframe src=&quot;https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=10GKWerT8JVmzFhAOns0szTEVm1gMxj6YRY9zur-MuKM&amp;amp;font=Default&amp;amp;lang=en&amp;amp;initial_zoom=2&amp;amp;height=650&quot; width=&quot;100%&quot; height=&quot;650&quot; frameborder=&quot;0&quot;&gt;&amp;nbsp;&lt;/iframe&gt;
+</description>
+        <pubDate>Thu, 04 Aug 2016 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/website/interactive/graphics/timeline/2016/08/04/timeline-template</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/website/interactive/graphics/timeline/2016/08/04/timeline-template</guid>
+        
+        
+        <category>website</category>
+        
+        <category>interactive</category>
+        
+        <category>graphics</category>
+        
+        <category>timeline</category>
+        
+      </item>
+    
+      <item>
+        <title>Gradient Optimization for Antigenic Cartography</title>
+        <description>&lt;h2 id=&quot;antigenic-cartography&quot;&gt;Antigenic Cartography&lt;/h2&gt;
+
+&lt;p&gt;In this &lt;a href=&quot;http://science.sciencemag.org/content/sci/349/6254/1338.full.pdf&quot;&gt;Science paper&lt;/a&gt; by Katzelnik et al. (2015), use multidimensional scaling to analyze their virus neutralization data by ‘antigenic cartography.’ The in-depth methods are described in their &lt;a href=&quot;http://science.sciencemag.org/content/sci/suppl/2015/09/16/349.6254.1338.DC1/Katzelnick.SM.pdf&quot;&gt;supplement&lt;/a&gt;. Unfortunately, as of this writing, the link that is provided in the method is not (no longer?) available &lt;a href=&quot;https://github.com/acorg/lispmds&quot;&gt;at the web location specified&lt;/a&gt;. It looks like lispmds has become ACMAPS, based on the website they also cited: &lt;a href=&quot;https://albertine.antigenic-cartography.org:1168&quot;&gt;https://albertine.antigenic-cartography.org:1168&lt;/a&gt;. The notation behind the method is given below. As a disclaimer, some of the text is copied verbatim from the supplement.&lt;/p&gt;
+
+&lt;p&gt;We start with a neutralization titer for virus $i$ with antiserum $j$, called $N_{i,j}$.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;table&lt;/em&gt; antigenic distances, $D_{i,j}$, are calculated as the difference between the log titer for the virus &lt;em&gt;best&lt;/em&gt; neutralized by a given serum, $b_j$, and the log titer for each virus $i$ against serum $j$:&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	D_{ij} = \log_2(b_j) - \log_2(N_{ij})
+    \end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;The &lt;em&gt;map&lt;/em&gt; antigenic distances, $d_{i,j}$, are found by minimizing the error function:&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	E=\Sigma_{ij} e(D_{ij}, d_{ij})^2
+	\end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;where the errors for any given ${i,j}$ pair are given by:&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	e(D_{ij}, d_{ij})^2=(D_{ij}-d_{ij})^2
+	\end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;The limits of detection for the assay range from the dilutions 1:10 to 1:20,480. When the neturalization was below the 1:10 limit of detection, the following error formula was used:&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	e(D_{ij}, d_{ij})^2=\frac{(D_{ij}-1-d_{ij})^2}{1+e^{-10(D_{ij}-1-d_{ij})}}
+	\end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;At this point, we look at the optimization technique used to obtain the estimates for the $d_{i,j}$.&lt;/p&gt;
+
+&lt;h2 id=&quot;conjugate-gradient-optimization&quot;&gt;Conjugate Gradient Optimization&lt;/h2&gt;
+
+&lt;p&gt;The R code, following the basic conjugate gradient algorithm on Wikipedia, is provided below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;conjgrad &amp;lt;- function(A, b, x, ...){
+	r &amp;lt;- b - A%*%x
+	p &amp;lt;- r
+	rsold &amp;lt;- t(r) %*% r
+
+	for(i in 1:length(b)){
+		Ap &amp;lt;- A%*%p
+		alpha &amp;lt;- rsold / (t(p)%*%Ap)
+		x &amp;lt;- x + alpha%*%t(p)
+		r &amp;lt;- r - t(alpha%*%t(A%*%p))
+		rsnew &amp;lt;- t(r) %*% r
+		if(sqrt(rsnew) &amp;lt; 1e-10){
+			break;
+		}
+		p &amp;lt;- r + t((rsnew/rsold)%*%t(p))
+		rsold &amp;lt;- rsnew
+	}
+
+	return(t(x))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example can be tested with the following values for &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt;, and &lt;code&gt;x&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;A &amp;lt;- matrix(c(4,1,1,3), nrow=2, ncol=2)
+b &amp;lt;- c(1,2)
+x &amp;lt;- c(2,1)
+
+conjgrad(A,b,x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The result is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;           [,1]
+[1,] 0.09090909
+[2,] 0.63636364
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is also the &lt;code&gt;optim&lt;/code&gt; function in R, that can be used with &lt;code&gt;method=&#39;cg&#39;&lt;/code&gt; in order to specify the conjugate gradient algorithm for optimization. References for the conjugate gradient have been described by Fletcher and Reeves (1964), and modified by Polak-Ribiere, and Beale-Sorenson. There is a pre-condidtioned method of conjugate gradient optimization that improves the algorithm under certain circumstances.&lt;/p&gt;
+
+&lt;p&gt;In this case, the error function &lt;code&gt;E&lt;/code&gt; is what we would like to minimize (the &lt;code&gt;fn&lt;/code&gt; in &lt;code&gt;optim&lt;/code&gt;), and the output values for &lt;code&gt;x&lt;/code&gt; should be map values that minimize the value of &lt;code&gt;E&lt;/code&gt;. The starting values for &lt;code&gt;x&lt;/code&gt; would be random starting values for the map distances. We will specify the initial values of the “parameters” to be optimized with the &lt;code&gt;par&lt;/code&gt; argument in &lt;code&gt;optim&lt;/code&gt;. At this moment, I am not sure what are good starting values for &lt;code&gt;x&lt;/code&gt;, but perhaps they should be roughly within the range of differences that we observe for the table distances.&lt;/p&gt;
+
+&lt;p&gt;The optimal map distances are generated by generating random starting coordinates and optimizing, then repeating the method for 5,000 independent methods. The minimum error map plots the distances such that one grid unit represents one two-fold dilution difference (an antigenic unit, AU), and moving away from a point by each additional grid unit multiplies that difference by 2 again.&lt;/p&gt;
+
+&lt;p&gt;The software for antigenic mapping (on the website &lt;a href=&quot;https://albertine.antigenic-cartography.org:1168&quot;&gt;https://albertine.antigenic-cartography.org:1168&lt;/a&gt;) is available for local use at: &lt;a href=&quot;https://github.com/acjim/AcmacsDesktop&quot;&gt;https://github.com/acjim/AcmacsDesktop&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Jul 2016 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/antigenic-cartography/denv/gradient/2016/07/26/gradient-optimization</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/antigenic-cartography/denv/gradient/2016/07/26/gradient-optimization</guid>
+        
+        
+        <category>antigenic-cartography</category>
+        
+        <category>denv</category>
+        
+        <category>gradient</category>
+        
+      </item>
+    
+      <item>
+        <title>Starting with Bootstrap</title>
+        <description>&lt;p&gt;While I have been using Jekyll for a few months now, I am running into some very nice website designs that require some fiddling with &lt;a href=&quot;http://getbootstrap.com&quot;&gt;Bootstrap&lt;/a&gt;, a popular framework for website development (mobile-friendly/mobile-first).&lt;/p&gt;
+
+&lt;h2 id=&quot;bootstrap&quot;&gt;Bootstrap&lt;/h2&gt;
+
+&lt;p&gt;Here are some of my notes on learning Bootstrap:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;There is a CodeSchool course on this &lt;a href=&quot;http://campus.codeschool.com/courses/blasting-off-with-bootstrap/&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;The purpose of this framework is to simplify the process of working with HTML, CSS, and JS files simultaneously.&lt;/li&gt;
+  &lt;li&gt;It assists with quick styling and organizing, reducing the amount of CSS and JS meddling you have to do to get a website up and running.&lt;/li&gt;
+  &lt;li&gt;It is popular, for example, see &lt;a href=&quot;http://www.lyft.com&quot;&gt;Lyft&lt;/a&gt;, and Apple &lt;a href=&quot;mapsconnect.apple.com&quot;&gt;Maps Connect&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;It can be used for &lt;a href=&quot;https://en.wikipedia.org/wiki/Responsive_web_design&quot;&gt;responsive&lt;/a&gt; web design.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 24 Jul 2016 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/websites/jekyll/2016/07/24/bootstrap</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/websites/jekyll/2016/07/24/bootstrap</guid>
+        
+        
+        <category>websites</category>
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>Plotting Block Letters Using Base R Graphics</title>
+        <description>&lt;p&gt;This is a code snippet I came up with that can be used to make a stylized &lt;br /&gt;
+letter &lt;code&gt;L&lt;/code&gt; using base R.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rvert &amp;lt;- runif(1000, min=-1, max=1)
+rhoriz &amp;lt;- runif(500, min=0, max=0.4)
+
+pdf(&quot;TheLetterL.pdf&quot;, width=8, height=8)
+plot(x=rvert, y=seq(from=0, to=1, length.out=1000), xlim=c(-2, 4), 
+	pch=16, col=&quot;black&quot;, yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, ylab=&quot;&quot;, xlab=&quot;&quot;)
+points(x=rvert, y=seq(from=0, to=1, length.out=1000), pch=16, 
+	cex=0.8, col=&quot;white&quot;)
+points(y=rhoriz, x=seq(from=1, to=3, length.out=500), pch=16, 
+	col=&quot;black&quot;)
+points(y=rhoriz, x=seq(from=1, to=3, length.out=500), pch=16, 
+	cex=0.8, col=&quot;white&quot;)
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Thu, 21 Jul 2016 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/coding-in-r/2016/07/21/base-r-letter-plot</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/coding-in-r/2016/07/21/base-r-letter-plot</guid>
+        
+        
+        <category>coding-in-r</category>
+        
+      </item>
     
       <item>
         <title>Embarking On My First R Package</title>
@@ -292,13 +474,13 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},&lt;br /&gt;
 
 &lt;h2 id=&quot;result-from-original-mathematica-vs-br-result-from-my-r-script&quot;&gt;Result from original Mathematica vs. &lt;br /&gt; Result from my R script&lt;/h2&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/blog/images/afp-mabs-sera_find-fit_heatmap.tiff?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;https://mauriziopaul.github.io/blog/images/afp-mabs-sera_find-fit_heatmap.tiff&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://mauriziopaul.github.io/blog/images/afp-heatmap1.pdf?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://mauriziopaul.github.io/blog/images/afp-heatmap1.pdf&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;alternative-visualization-using-stacked-bars&quot;&gt;Alternative visualization using stacked bars&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://mauriziopaul.github.io/blog/images/afp-stackedbars.pdf?raw=true&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://mauriziopaul.github.io/blog/images/afp-stackedbars.pdf&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;footnotes&quot;&gt;
   &lt;ol&gt;
