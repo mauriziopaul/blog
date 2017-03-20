@@ -14,5 +14,5 @@ Here are some of my notes on learning Bootstrap:
 * There is a CodeSchool course on this [here](http://campus.codeschool.com/courses/blasting-off-with-bootstrap/).
 * The purpose of this framework is to simplify the process of working with HTML, CSS, and JS files simultaneously.
 * It assists with quick styling and organizing, reducing the amount of CSS and JS meddling you have to do to get a website up and running.
-* It is popular, for example, see [Lyft](http://www.lyft.com), and Apple [Maps Connect](mapsconnect.apple.com).
+* It is popular, for example, see [Lyft](http://www.lyft.com), and Apple [Maps Connect](https://mapsconnect.apple.com).
 * It can be used for [responsive](https://en.wikipedia.org/wiki/Responsive_web_design) web design.

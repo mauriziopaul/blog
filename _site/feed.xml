@@ -5,8 +5,8 @@
     <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 06 Jan 2017 00:35:33 -0500</pubDate>
-    <lastBuildDate>Fri, 06 Jan 2017 00:35:33 -0500</lastBuildDate>
+    <pubDate>Sun, 19 Mar 2017 21:24:54 -0400</pubDate>
+    <lastBuildDate>Sun, 19 Mar 2017 21:24:54 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -147,7 +147,7 @@ conjgrad(A,b,x)
   &lt;li&gt;There is a CodeSchool course on this &lt;a href=&quot;http://campus.codeschool.com/courses/blasting-off-with-bootstrap/&quot;&gt;here&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;The purpose of this framework is to simplify the process of working with HTML, CSS, and JS files simultaneously.&lt;/li&gt;
   &lt;li&gt;It assists with quick styling and organizing, reducing the amount of CSS and JS meddling you have to do to get a website up and running.&lt;/li&gt;
-  &lt;li&gt;It is popular, for example, see &lt;a href=&quot;http://www.lyft.com&quot;&gt;Lyft&lt;/a&gt;, and Apple &lt;a href=&quot;mapsconnect.apple.com&quot;&gt;Maps Connect&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;It is popular, for example, see &lt;a href=&quot;http://www.lyft.com&quot;&gt;Lyft&lt;/a&gt;, and Apple &lt;a href=&quot;https://mapsconnect.apple.com&quot;&gt;Maps Connect&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;It can be used for &lt;a href=&quot;https://en.wikipedia.org/wiki/Responsive_web_design&quot;&gt;responsive&lt;/a&gt; web design.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
