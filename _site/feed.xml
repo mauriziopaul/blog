@@ -5,8 +5,8 @@
     <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 06 Apr 2017 13:39:11 -0400</pubDate>
-    <lastBuildDate>Thu, 06 Apr 2017 13:39:11 -0400</lastBuildDate>
+    <pubDate>Tue, 20 Jun 2017 15:26:12 -0400</pubDate>
+    <lastBuildDate>Tue, 20 Jun 2017 15:26:12 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -16,6 +16,8 @@
 &lt;p&gt;In order to develop a software website for my manuscript, in revision, I am attempting to follow quick start instructions to create a Hugo website, here: &lt;a href=&quot;https://gohugo.io/overview/quickstart/&quot;&gt;hugo&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I am also interested in the [Aerial] theme, which is described here: &lt;a href=&quot;http://themes.gohugo.io/aerial/&quot;&gt;Aerial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is an example of a ``landing’’ page for my website, based on the above: &lt;a href=&quot;http://mauriziopaul.github.io/landing&quot;&gt;Landing&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 06 Apr 2017 00:00:00 -0400</pubDate>
         <link>http://mauriziopaul.github.io/blog/website/hugo/landing/page/2017/04/06/hugo</link>
