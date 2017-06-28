@@ -5,9 +5,132 @@
     <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 20 Jun 2017 15:26:12 -0400</pubDate>
-    <lastBuildDate>Tue, 20 Jun 2017 15:26:12 -0400</lastBuildDate>
+    <pubDate>Wed, 28 Jun 2017 16:39:14 -0400</pubDate>
+    <lastBuildDate>Wed, 28 Jun 2017 16:39:14 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Deordinalization</title>
+        <description>&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Note: This post is being updated. Check back for more in a few days.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We are interested in finding host quantitative trait loci (QTL) controlling pathology in the lung following influenza virus infection in mice. We have a Collaborative Cross Recombinant Inbred Cross (CC-RIX, or CC-F1) panel that has been infected with influenza A virus (CA04), and we have 12 histology scores measured on day 10 (D10) post-infection.&lt;/p&gt;
+
+&lt;p&gt;However, before we do any QTL mapping, we observe that the distribution of the data we have for the histology tissues is not normal–it is distributed as a categorical (ordinal) set of scores, ranging from very mild to very severe. These scores are represented by integer (and half-integer) values, but are not necessarily best modeled as numeric. One option is to “deordinalize” the phenotypes, using ordinal logistic regression, generating a normally distributed data set.&lt;/p&gt;
+
+&lt;h2 id=&quot;deordinalization&quot;&gt;Deordinalization&lt;/h2&gt;
+
+&lt;p&gt;I summarize the following model we are using for our data, from the following reference: &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Gelman and Hill (2007) &lt;a href=&quot;https://doi.org/10.1017/CBO9780511790942.008&quot;&gt;Data Analysis Using Regression and Multilevel/Hierarchical Models&lt;/a&gt;: § 6.5 “Multinomial regression”; § 15.2 “Ordered categorical regression: storable votes”; and § 17.6 “Multilevel ordered categorial regression”.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Additional resources include:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Faraway (2016) &lt;a href=&quot;https://www.crcpress.com/Extending-the-Linear-Model-with-R-Generalized-Linear-Mixed-Effects-and/Faraway/p/book/9781498720960&quot;&gt;Extending the Linear Model with R&lt;/a&gt;: § 5.3 “Ordinal Multinomial Responses”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Venables and Ripley (2002) &lt;a href=&quot;http://www.springer.com/us/book/9780387954578&quot;&gt;Modern Applied Statistics with S&lt;/a&gt;: § 7.3 “Poisson and Multinomial Models”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Agresti (2012) &lt;a href=&quot;http://www.wiley.com/WileyCDA/WileyTitle/productCd-0470463635.html&quot;&gt;Categorical Data Analysis&lt;/a&gt;: § 7 “Logit Models for Multinomial Responses” and § 12.4 “Random Effects Models for Multinomial Data”; also ICDA: &lt;a href=&quot;http://www.stat.ufl.edu/~aa/cda/software.html&quot;&gt;software supplement&lt;/a&gt; and &lt;a href=&quot;https://web.archive.org/web/20151002190955/https://home.comcast.net/~lthompson221/Splusdiscrete2.pdf&quot;&gt;R and S-PLUS Manual to Accompany CDA&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;McCullagh and Nelder (1989) &lt;a href=&quot;https://www.crcpress.com/Generalized-Linear-Models-Second-Edition/McCullagh-Nelder/p/book/9780412317606&quot;&gt;Generalized Linear Models&lt;/a&gt; § 5.1 “Models for polytomous data”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Fullerton and Xu (2016) &lt;a href=&quot;http://www.crcnetbase.com/doi/book/10.1201/b20060&quot;&gt;Ordered Regression Models&lt;/a&gt;: § 2 “Parallel Models”&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Our data can be described as arising from a multinomial distribution, where, for $y \in \{ 1, 2, \dots, K \} $, we have a set of probabilities:&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	Pr(y &gt; 1) = \text{logit}^{-1}(X \beta)
+	\end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	Pr(y &gt; 2) = \text{logit}^{-1}(X \beta - c_2)
+	\end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	Pr(y &gt; 3) = \text{logit}^{-1}(X \beta - c_3)
+	\end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	\dots \nonumber
+	\end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	Pr(y &gt; K - 1) = \text{logit}^{-1}(X \beta - c_{K-1})
+	\end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;The parameters $c_1$ through $c_{K-1}$ are the &lt;em&gt;cutpoints&lt;/em&gt;. For any possible given $k$,&lt;/p&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+	Pr(y=k) = Pr(y &gt; k-1) - Pr(y&gt;k).
+	\end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;There is an alternative formulation for logistic regression which uses a &lt;em&gt;latent variable&lt;/em&gt; which is used to define the cutpoints for classification of each of the $y$ outcomes. For each individual, $i$, a latent variable, $z_i$ is given, and the value of that variable determines the value of the $y_i$ outcome. The latent variable is modeled using a linear model where the errors are distributed in a &lt;em&gt;logistic&lt;/em&gt; fashion.&lt;/p&gt;
+
+&lt;p&gt;McCullagh (1980, &lt;em&gt;J Royal Stat Soc B-Methodological&lt;/em&gt;) describes the continuous latent variable as a “tolerance” value, which may be an unobservable, latent biological quantity of interest. &lt;/p&gt;
+
+&lt;p&gt;A help page for a Bayesian proportional odds logistic regression function, &lt;code&gt;bayespolr()&lt;/code&gt;, from the &lt;code&gt;arm&lt;/code&gt; package, is here: &lt;a href=&quot;https://www.rdocumentation.org/packages/arm/versions/1.9-3/topics/bayespolr&quot;&gt;bayespolr help&lt;/a&gt;. It uses BFGS and the &lt;code&gt;optim()&lt;/code&gt; package. In contrast to &lt;code&gt;polr()&lt;/code&gt;, which has no intercept, &lt;code&gt;bayespolr()&lt;/code&gt; will force an intercept into the model. There is also &lt;code&gt;vglm()&lt;/code&gt; from the &lt;a href=&quot;https://www.stat.auckland.ac.nz/~yee/VGAM/&quot;&gt;&lt;code&gt;VGAM&lt;/code&gt; library&lt;/a&gt;. There is the &lt;code&gt;clmm()&lt;/code&gt; function in the &lt;code&gt;ordinal&lt;/code&gt; package that allows cumulative logit models with random effects (Laplace approx.). &lt;/p&gt;
+
+&lt;h2 id=&quot;some-useful-r-packages-and-functions&quot;&gt;Some useful R packages and functions&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;library(MCMCpack)
+MCMCoprobit()
+
+library(VGAM)
+vglm()
+
+library(ordinal)
+clm(); clmm()
+
+library(MASS)
+polr()
+
+library(ARM)
+bayespolr()
+
+library(brms)
+brm()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;key-reference&quot;&gt;Key reference:&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Peter McCullagh, 1980, &lt;em&gt;J Royal Stat Soc B-Methodological&lt;/em&gt;, “Regression Models for Ordinal Data”&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Wed, 28 Jun 2017 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/stats/mapping/2017/06/28/polr</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/stats/mapping/2017/06/28/polr</guid>
+        
+        
+        <category>stats</category>
+        
+        <category>mapping</category>
+        
+      </item>
     
       <item>
         <title>Making a Hugo website</title>
@@ -523,45 +646,6 @@ R_k = \{\mu_{ik} \left| i \in S \right . \},&lt;br /&gt;
         <category>antibody-footprinting</category>
         
         <category>denv</category>
-        
-      </item>
-    
-      <item>
-        <title>Hello World!</title>
-        <description>&lt;p&gt;This is my &lt;em&gt;first&lt;/em&gt; blog post. Testing-testing-1-2-3. &lt;/p&gt;
-
-&lt;p&gt;The post is being written in &lt;a href=&quot;https://gitbookio.gitbooks.io/markdown/content/index.html&quot;&gt;markdown&lt;/a&gt; and implemented using &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Code snippets are easy to implement:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;table style=&quot;border-spacing: 0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot; style=&quot;text-align: right&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Hello, %s!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;World&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prints&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello, World!&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;console.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
-
-
-
-Some resources for Jekyll: Try looking at the [Jekyll docs][jekyll-docs], take a look at bugs and feature requests at [Jekyll’s GitHub repo][jekyll-gh], and get answers to questions on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: http://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</description>
-        <pubDate>Mon, 02 Nov 2015 12:58:15 -0500</pubDate>
-        <link>http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/jekyll/2015/11/02/hello-world</guid>
-        
-        
-        <category>jekyll</category>
         
       </item>
     
