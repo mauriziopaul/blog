@@ -5,15 +5,15 @@
     <description>Statistical Genetics &lt;br&gt;&amp;amp; Viral Pathogenesis</description>
     <link>http://mauriziopaul.github.io/blog/</link>
     <atom:link href="http://mauriziopaul.github.io/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 28 Jun 2017 16:39:14 -0400</pubDate>
-    <lastBuildDate>Wed, 28 Jun 2017 16:39:14 -0400</lastBuildDate>
+    <pubDate>Thu, 20 Jul 2017 11:18:49 -0400</pubDate>
+    <lastBuildDate>Thu, 20 Jul 2017 11:18:49 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Deordinalization</title>
         <description>&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 
-&lt;p&gt;&lt;em&gt;Note: This post is being updated. Check back for more in a few days.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: This post is being updated. Check back again in a few days.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;We are interested in finding host quantitative trait loci (QTL) controlling pathology in the lung following influenza virus infection in mice. We have a Collaborative Cross Recombinant Inbred Cross (CC-RIX, or CC-F1) panel that has been infected with influenza A virus (CA04), and we have 12 histology scores measured on day 10 (D10) post-infection.&lt;/p&gt;
 
@@ -114,6 +114,40 @@ library(brms)
 brm()
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;h2 id=&quot;cumulative-probit-model-with-brms&quot;&gt;Cumulative Probit model with BRMS&lt;/h2&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+    y_i \sim D(f(\eta_i), \theta)
+    \end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+    \eta_i = \boldsymbol{X}\beta + \boldsymbol{Z}_{\text{cross}}u_{\text{cross}} + \boldsymbol{Z}_{\text{batch}}u_{\text{batch}}
+    \end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+    u_{\text{cross}} \sim \text{student-t}(0, \boldsymbol{\sigma}_{\text{cross}})
+    \end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+    u_{\text{batch}} \sim \text{student-t}(0, \boldsymbol{\sigma}_{\text{batch}})
+    \end{equation}
+    &lt;/div&gt;
+
+    &lt;div&gt;
+    \begin{equation}
+    P(c_k | \mu, d) = \phi(d*(c_k - \mu)) - \phi(d*(c_{k-1} - \mu))
+    \end{equation}
+    &lt;/div&gt;
+
+&lt;p&gt;where $\phi()$ is the cumulative unit normal distribution function.&lt;/p&gt;
+
 &lt;h2 id=&quot;key-reference&quot;&gt;Key reference:&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -121,9 +155,9 @@ brm()
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Wed, 28 Jun 2017 00:00:00 -0400</pubDate>
-        <link>http://mauriziopaul.github.io/blog/stats/mapping/2017/06/28/polr</link>
-        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/stats/mapping/2017/06/28/polr</guid>
+        <pubDate>Thu, 06 Jul 2017 00:00:00 -0400</pubDate>
+        <link>http://mauriziopaul.github.io/blog/stats/mapping/2017/07/06/polr</link>
+        <guid isPermaLink="true">http://mauriziopaul.github.io/blog/stats/mapping/2017/07/06/polr</guid>
         
         
         <category>stats</category>
