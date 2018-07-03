@@ -10,8 +10,8 @@ author :
   github : mauriziopaul
   twitter : TweetNTD
   feedburner : nil
-# email : paul.maurizio@gmail.com
-description : Statistical Genetics <br>&amp; Viral Pathogenesis
+# email : maurizio@alumni.unc.edu
+description : Statistical Genetics, <br> Genomics &amp; Viral Pathogenesis
 production_url : https://mauriziopaul.github.io/blog
 baseurl : "/blog" # the subpath of the site
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site
