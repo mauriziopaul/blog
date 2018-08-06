@@ -4,14 +4,14 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "
 highlighter: rouge
 future: false
 
-title : Propagating Uncertainty - a blog by mauriziopaul
+title : Propagating Uncertainty&#58; a blog
 author :
   name : Paul L. Maurizio 
   github : mauriziopaul
   twitter : TweetNTD
   feedburner : nil
 # email : maurizio@alumni.unc.edu
-description : Statistical Genetics, <br> Genomics &amp; Viral Pathogenesis
+description : Statistical Genetics, <br> Genomics &amp; Immunity
 production_url : https://mauriziopaul.github.io/blog
 baseurl : "/blog" # the subpath of the site
 url : "http://mauriziopaul.github.io" # the base hostname & protocol for your site

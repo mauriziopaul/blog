@@ -5,7 +5,7 @@ date:   2015-12-10
 categories: git-workflow
 ---
 
-Here are some notes (mostly for myself) about common workflows when using [git][git-link], from what I have learned on [Codecademy][codecademy-git] lesson on git. I am now frequently using [GitHub][github] to work on my projects. I am just getting into branching, and hopefully referring to this will help with simplifying the process of testing and developing code/scripts, and help when collaborating with others.
+Here are some notes (mostly for myself) about common workflows when using [git][git-link]. These are based on what I have learned from the [Codecademy][codecademy-git] lesson on git. I am now frequently using [GitHub][github] to work on my projects. I am just getting into branching, and hopefully referring to this will help with simplifying the process of testing and developing code/scripts, and help when collaborating with others.
 
 ```
 	## standard workflow
