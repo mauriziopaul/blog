@@ -4,8 +4,8 @@ exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "
 highlighter: rouge
 future: false
 
-title : Propagating Uncertainty&#58; a blog
-author :
+title : Propagating Uncertainty | a statistical modeling blog
+author : 
   name : Paul L. Maurizio 
   github : mauriziopaul
   twitter : TweetNTD

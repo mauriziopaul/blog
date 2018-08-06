@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Propagating Uncertainty&amp;#58; a blog</title>
+    <title>Propagating Uncertainty | a statistical modeling blog</title>
     <description>Statistical Genetics, &lt;br&gt; Genomics &amp;amp; Immunity</description>
     <link>http://localhost:4000/blog/</link>
     <atom:link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 05 Aug 2018 21:51:19 -0500</pubDate>
-    <lastBuildDate>Sun, 05 Aug 2018 21:51:19 -0500</lastBuildDate>
+    <pubDate>Sun, 05 Aug 2018 22:19:13 -0500</pubDate>
+    <lastBuildDate>Sun, 05 Aug 2018 22:19:13 -0500</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
     
       <item>
         <title>Deordinalization</title>
         <description>&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 
-&lt;p&gt;&lt;em&gt;Note: This post is a work in progress for a manuscript under preparation. I hope to document these adventures more fully in the supplemental methods of the final manuscript.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: This post is a work in progress for a manuscript under preparation. I hope to document these adventures more fully in the (supplemental) methods of the final manuscript.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;We are interested in finding host quantitative trait loci (QTL) controlling pathology in the lung following influenza virus infection in mice. We have a Collaborative Cross Recombinant Inbred Cross (CC-RIX, or CC-F1) panel that has been infected with influenza A virus (CA04), and we have 12 histology scores measured on day 10 (D10) post-infection.&lt;/p&gt;
 
