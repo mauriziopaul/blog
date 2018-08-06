@@ -5,6 +5,10 @@ permalink: /about/
 ---
 
 ### Me
+
+{: .center}
+![](https://mauriziopaul.github.io/blog/images/PLM02.png)
+
 My name is Paul, and I am a postdoctoral scholar at the University of Chicago. You can find out more about me at my main GitHub.io page, [https://mauriziopaul.github.io](https://mauriziopaul.github.io), or at my GitHub user page: {% include icon-github.html username="mauriziopaul" %}
 
 
